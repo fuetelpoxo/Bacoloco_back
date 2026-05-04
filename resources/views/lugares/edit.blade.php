@@ -76,7 +76,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-end">
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                            <button type="submit" class="btn btn-sm btn-outline-dark">Actualizar</button>
                         </div>
                     </div>
                 </form>

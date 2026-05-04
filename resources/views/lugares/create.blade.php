@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-end">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-sm btn-outline-dark">Guardar</button>
                         </div>
                     </div>
                 </form>

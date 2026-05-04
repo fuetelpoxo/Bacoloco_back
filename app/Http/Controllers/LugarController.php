@@ -9,11 +9,17 @@ use Illuminate\Http\Request;
 
 class LugarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $lugares = Lugar::with('eventos')->get();
+        $filtros = $this->aplicarFiltros($request);
 
-        return view('lugares.index', compact('lugares'));
+        $lugares = Lugar::withCount('eventos')
+            ->where($filtros)
+            ->paginate(10)
+            ->withQueryString();
+
+        $tipos = Tipo::pluck('nombre', 'id');
+        return view('lugares.index', compact('lugares', 'tipos'));
     }
 
     public function create()
@@ -75,5 +81,28 @@ class LugarController extends Controller
         $lugar->delete();
 
         return redirect()->route('lugares.index')->with('success', 'Lugar eliminado correctamente.');
+    }
+
+    private function aplicarFiltros(Request $request)
+    {
+        $filtros = [];
+
+        if ($request->activo !== null && $request->activo !== '') {
+            $filtros[] = ['activo', '=', $request->activo];
+        }
+
+        if ($request->tipo_id) {
+            $filtros[] = ['tipo_id', '=', $request->tipo_id];
+        }
+
+        if ($request->municipio) {
+            $filtros[] = ['municipio', '=', $request->municipio];
+        }
+
+        if ($request->nombre) {
+            $filtros[] = ['nombre', 'like', '%' . $request->nombre . '%'];
+        }
+
+        return $filtros;
     }
 }

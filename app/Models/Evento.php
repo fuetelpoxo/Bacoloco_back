@@ -17,6 +17,13 @@ class Evento extends Model
         'activo',
     ];
 
+    protected $casts = [
+        'fecha_inicio' => 'datetime',
+        'fecha_fin' => 'datetime',
+        'precio' => 'decimal:2',
+        'activo' => 'boolean',
+    ];
+
     public function lugar()
     {
         return $this->belongsTo(Lugar::class);
