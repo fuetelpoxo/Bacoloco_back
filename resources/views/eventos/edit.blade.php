@@ -22,7 +22,7 @@
 
         <div class="card shadow-sm rounded-3 border">
             <div class="card-body p-4">
-                <form action="{{ route('eventos.update', $evento) }}" method="POST">
+                <form action="{{ route('eventos.update', $evento) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -71,11 +71,41 @@
                                 <label class="form-check-label" for="activo">Activo</label>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Añadir nuevas fotos</label>
+                            <input type="file" name="imagenes[]" class="form-control" multiple accept="image/*">
+                            <div class="form-text">Las fotos nuevas se añaden sin reemplazar las existentes.</div>
+                        </div>
                         <div class="col-md-12 text-end">
                             <button type="submit" class="btn btn-dark">Actualizar</button>
                         </div>
                     </div>
                 </form>
+
+                <div class="col-md-12">
+                    <label class="form-label">Fotos actuales</label>
+                    @if ($evento->imagenes->isEmpty())
+                        <p class="text-muted mb-0">Este evento no tiene fotos.</p>
+                    @else
+                        <div class="row g-3">
+                            @foreach ($evento->imagenes as $imagen)
+                                <div class="col-6 col-md-3">
+                                    <div class="card">
+                                        <img src="{{ asset('storage/' . $imagen->ruta) }}" class="card-img-top"
+                                            alt="Foto del evento">
+                                        <div class="card-body text-center p-2">
+                                            <form action="{{ route('imagenes.destroy', $imagen) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

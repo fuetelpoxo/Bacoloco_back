@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class ValoracionesController extends Controller
+class ValoracionController extends Controller
 {
     /**
      * Obtiene todas las valoraciones del usuario autenticado.

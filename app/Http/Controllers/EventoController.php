@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imagen;
 use App\Models\Evento;
 use App\Models\Lugar;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventoController extends Controller
 {
@@ -41,15 +43,31 @@ class EventoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'precio' => 'nullable|numeric|min:0',
             'activo' => 'sometimes|boolean',
+            'imagenes' => 'nullable|array',
+            'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
 
-        Evento::create($data);
+        $evento = Evento::create($data);
+
+        if ($request->hasFile('imagenes')) {
+            foreach ($request->file('imagenes') as $archivo) {
+                $ruta = $archivo->store('eventos', 'public');
+
+                $imagen = Imagen::create([
+                    'ruta' => $ruta,
+                    'tipo' => 'evento',
+                ]);
+
+                $evento->imagenes()->attach($imagen->id);
+            }
+        }
 
         return redirect()->route('eventos.index')->with('success', 'Evento creado correctamente.');
     }
 
     public function edit(Evento $evento)
     {
+        $evento->load('imagenes');
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
@@ -67,9 +85,24 @@ class EventoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'precio' => 'nullable|numeric|min:0',
             'activo' => 'sometimes|boolean',
+            'imagenes' => 'nullable|array',
+            'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
 
         $evento->update($data);
+
+        if ($request->hasFile('imagenes')) {
+            foreach ($request->file('imagenes') as $archivo) {
+                $ruta = $archivo->store('eventos', 'public');
+
+                $imagen = Imagen::create([
+                    'ruta' => $ruta,
+                    'tipo' => 'evento',
+                ]);
+
+                $evento->imagenes()->attach($imagen->id);
+            }
+        }
 
         return redirect()->route('eventos.index')->with('success', 'Evento actualizado correctamente.');
     }

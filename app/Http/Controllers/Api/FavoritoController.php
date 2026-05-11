@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class FavoritosController extends Controller
+class FavoritoController extends Controller
 {
     /**
      * Guarda un lugar como favorito para un usuario.

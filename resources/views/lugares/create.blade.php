@@ -22,7 +22,7 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-                <form action="{{ route('lugares.store') }}" method="POST">
+                <form action="{{ route('lugares.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row gy-3">
@@ -73,6 +73,11 @@
                                 <input class="form-check-input" type="checkbox" name="activo" value="1" id="activo" {{ old('activo') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="activo">Activo</label>
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Imágenes</label>
+                            <input type="file" name="imagenes[]" class="form-control" accept="image/*" multiple>
+                            <small class="text-muted">Puedes seleccionar una o varias imágenes. Formatos soportados: JPG, PNG, GIF, WebP</small>
                         </div>
                         <div class="col-md-12 text-end">
                             <button type="submit" class="btn btn-sm btn-outline-dark">Guardar</button>

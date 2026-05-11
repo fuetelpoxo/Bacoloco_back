@@ -10,8 +10,8 @@ use App\Http\Controllers\Api\LugarController;
 
 //RUTAS API AUTENTICACION
 Route::controller(AuthController::class)->group(function () {
-    Route::post('/register', 'register');
     Route::post('/login', 'login');
+    Route::post('/register', 'register');
     Route::middleware('auth:sanctum')->post('/logout', 'logout');
 });
 
