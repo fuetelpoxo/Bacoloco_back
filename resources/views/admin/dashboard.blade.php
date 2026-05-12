@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('content')
 <div class="container-fluid bg-white text-dark py-4">
@@ -15,7 +15,6 @@
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="text-muted text-uppercase fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px;">Total Usuarios</div>
-                        <i class="fs-4 text-dark opacity-50">👥</i>
                     </div>
                     <div class="h1 mb-0 fw-bolder">{{ $totalUsuarios }}</div>
                 </div>
@@ -27,7 +26,6 @@
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="text-muted text-uppercase fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px;">Lugares Registrados</div>
-                        <i class="fs-4 text-secondary opacity-50">📍</i>
                     </div>
                     <div class="h1 mb-0 fw-bolder">{{ $totalLugares }}</div>
                 </div>
@@ -39,7 +37,6 @@
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="text-muted text-uppercase fw-bold" style="font-size: 0.85rem; letter-spacing: 0.5px;">Eventos Activos</div>
-                        <i class="fs-4 text-dark opacity-50">📅</i>
                     </div>
                     <div class="h1 mb-0 fw-bolder">{{ $eventosActivos }}</div>
                 </div>

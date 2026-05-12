@@ -13,7 +13,7 @@
 
     <div class="d-flex">
 
-        @include('components.sidebar')
+        @include('admin.components.sidebar')
 
         <main class="p-4 w-100" style="min-height: 100vh;">
             @yield('content')

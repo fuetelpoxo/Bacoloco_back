@@ -20,7 +20,7 @@ class LugarController extends Controller
             ->withQueryString();
 
         $tipos = Tipo::pluck('nombre', 'id');
-        return view('lugares.index', compact('lugares', 'tipos'));
+        return view('admin.lugares.index', compact('lugares', 'tipos'));
     }
 
     public function create()
@@ -28,7 +28,7 @@ class LugarController extends Controller
         $tipos = Tipo::pluck('nombre', 'id');
         $users = User::pluck('nombre', 'id');
 
-        return view('lugares.create', compact('tipos', 'users'));
+        return view('admin.lugares.create', compact('tipos', 'users'));
     }
 
     public function store(Request $request)
@@ -76,7 +76,7 @@ class LugarController extends Controller
         $tipos = Tipo::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('lugares.edit', compact('lugar', 'tipos', 'users'));
+        return view('admin.lugares.edit', compact('lugar', 'tipos', 'users'));
     }
 
     public function update(Request $request, Lugar $lugar)

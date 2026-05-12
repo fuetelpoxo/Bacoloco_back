@@ -22,20 +22,20 @@ class ValoracionController extends Controller
 
         // Obtenemos los lugares para el select del filtro
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
-        
+
         // Obtenemos los usuarios que tienen valoraciones para el select del filtro
         $usuarios = User::has('valoraciones')
             ->orderBy('nombre')
             ->pluck('nombre', 'id');
 
-        return view('valoraciones.index', compact('valoraciones', 'lugares', 'usuarios'));
+        return view('admin.valoraciones.index', compact('valoraciones', 'lugares', 'usuarios'));
     }
 
     public function create()
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $usuarios = User::orderBy('nombre')->pluck('nombre', 'id');
-        return view('valoraciones.create', compact('lugares', 'usuarios'));
+        return view('admin.valoraciones.create', compact('lugares', 'usuarios'));
     }
 
     public function store(Request $request)
@@ -56,7 +56,7 @@ class ValoracionController extends Controller
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $usuarios = User::orderBy('nombre')->pluck('nombre', 'id');
-        return view('valoraciones.edit', compact('valoracion', 'lugares', 'usuarios'));
+        return view('admin.valoraciones.edit', compact('valoracion', 'lugares', 'usuarios'));
     }
 
     public function update(Request $request, Valoracion $valoracion)

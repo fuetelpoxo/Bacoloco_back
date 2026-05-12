@@ -17,6 +17,6 @@ class DashboardController extends Controller
         // En vistas anteriores se veía el campo "activo"
         $eventosActivos = Evento::where('activo', 1)->count();
 
-        return view('dashboard', compact('totalUsuarios', 'totalLugares', 'eventosActivos'));
+        return view('admin.dashboard', compact('totalUsuarios', 'totalLugares', 'eventosActivos'));
     }
 }

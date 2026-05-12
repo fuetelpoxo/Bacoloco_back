@@ -21,7 +21,7 @@ class EventoController extends Controller
 
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('eventos.index', compact('eventos', 'lugares'));
+        return view('admin.eventos.index', compact('eventos', 'lugares'));
     }
 
     public function create()
@@ -29,7 +29,7 @@ class EventoController extends Controller
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('eventos.create', compact('lugares', 'users'));
+        return view('admin.eventos.create', compact('lugares', 'users'));
     }
 
     public function store(Request $request)
@@ -71,7 +71,7 @@ class EventoController extends Controller
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('eventos.edit', compact('evento', 'lugares', 'users'));
+        return view('admin.eventos.edit', compact('evento', 'lugares', 'users'));
     }
 
     public function update(Request $request, Evento $evento)

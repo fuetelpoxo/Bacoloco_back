@@ -1,6 +1,5 @@
-{{-- resources/views/lugares/index.blade.php --}}
 
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('content')
 

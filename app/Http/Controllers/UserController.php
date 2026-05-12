@@ -17,12 +17,12 @@ class UserController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('usuarios.index', compact('usuarios'));
+        return view('admin.usuarios.index', compact('usuarios'));
     }
 
     public function create()
     {
-        return view('usuarios.create');
+        return view('admin.usuarios.create');
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function edit(User $usuario)
     {
-        return view('usuarios.edit', compact('usuario'));
+        return view('admin.usuarios.edit', compact('usuario'));
     }
 
     public function update(Request $request, User $usuario)

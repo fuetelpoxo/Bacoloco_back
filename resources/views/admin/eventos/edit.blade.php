@@ -1,6 +1,6 @@
 {{-- resources/views/eventos/edit.blade.php --}}
 
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('content')
     <div class="container-fluid bg-white text-dark py-3">

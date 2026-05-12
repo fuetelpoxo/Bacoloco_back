@@ -2,7 +2,10 @@
 
 <aside class="bg-dark text-white p-3 d-flex flex-column" style="width: 250px; min-height: 100vh;">
 
-    <img src="{{ asset('imagenes/LogoBlanco.png') }}" href alt="Logo" class="img-fluid w-50">
+    <a href="{{ auth()->user()->rol === 'admin' ? route('admin.dashboard') : route('lugares.index') }}"
+        class="text-center mb-3">
+        <img src="{{ asset('imagenes/LogoBlanco.png') }}" alt="Logo" class="img-fluid w-50">
+    </a>
     <ul class="nav flex-column">
 
         <li class="nav-item mb-2">
@@ -33,7 +36,7 @@
     <form action="{{ route('logout') }}" method="POST" class="mt-auto">
         @csrf
 
-        <button type="submit" class="btn btn-outline-light w-100">
+        <button type="submit" class="btn btn-outline-danger w-100">
             Cerrar sesión
         </button>
     </form>

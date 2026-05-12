@@ -1,6 +1,6 @@
 {{-- resources/views/lugares/edit.blade.php --}}
 
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('content')
     <div class="container-fluid">
