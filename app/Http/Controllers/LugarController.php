@@ -73,8 +73,8 @@ class LugarController extends Controller
     public function edit(Lugar $lugar)
     {
         $lugar->load('imagenes');
-        $tipos = Tipo::pluck('nombre', 'id');
-        $users = User::pluck('nombre', 'id');
+        $tipos = Tipo::orderBy('nombre')->pluck('nombre', 'id');
+        $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
         return view('lugares.edit', compact('lugar', 'tipos', 'users'));
     }
