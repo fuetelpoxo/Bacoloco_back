@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('lugar_id')->constrained('lugares')->cascadeOnDelete();
             $table->tinyInteger('puntuacion');
             $table->text('comentario')->nullable();
+            $table->boolean('reportado')->default(false);
             $table->timestamps();
         });
     }

@@ -16,6 +16,7 @@ class ValoracionSeeder extends Seeder
                 'lugar_id' => 1,
                 'puntuacion' => 5,
                 'comentario' => 'Muy bonito',
+                'reportado' => 0,
                 'created_at' => now(),
                 'updated_at' => now()
             ]

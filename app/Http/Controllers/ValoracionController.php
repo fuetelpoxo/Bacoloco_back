@@ -66,6 +66,7 @@ class ValoracionController extends Controller
             'lugar_id' => 'required|exists:lugares,id',
             'puntuacion' => 'required|integer|min:1|max:5',
             'comentario' => 'nullable|string|max:1000',
+            'reportado' => 'nullable|boolean',
         ]);
 
         $valoracion->update($data);
@@ -97,6 +98,11 @@ class ValoracionController extends Controller
         // Filtro por ID de lugar (viene del select)
         if ($request->filled('lugar_id')) {
             $filtros[] = ['lugar_id', '=', $request->lugar_id];
+        }
+
+        // Filtro por reportado
+        if ($request->filled('reportado')) {
+            $filtros[] = ['reportado', '=', $request->reportado];
         }
 
         return $filtros;

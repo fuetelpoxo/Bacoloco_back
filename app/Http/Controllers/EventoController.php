@@ -7,6 +7,7 @@ use App\Models\Evento;
 use App\Models\Lugar;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class EventoController extends Controller
@@ -34,6 +35,7 @@ class EventoController extends Controller
 
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'lugar_id' => 'nullable|integer|exists:lugares,id',
             'user_id' => 'required|integer|exists:users,id',
@@ -46,6 +48,17 @@ class EventoController extends Controller
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
+
+        // Si es organizador, validar que el lugar le pertenece y auto-asignar user_id
+        if (Auth::user()->rol === 'organizador') {
+            if ($data['lugar_id']) {
+                $lugar = Lugar::findOrFail($data['lugar_id']);
+                if ($lugar->user_id !== Auth::id()) {
+                    return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para crear eventos en este lugar.');
+                }
+            }
+            $data['user_id'] = Auth::id();
+        }
 
         $evento = Evento::create($data);
 
@@ -61,14 +74,29 @@ class EventoController extends Controller
                 $evento->imagenes()->attach($imagen->id);
             }
         }
-
+        if (Auth::user()->rol === 'organizador') {
+            dd('aqui');
+            return redirect()->route('organizador.dashboard')->with('success', 'Evento creado correctamente.');
+        }
+        dd('aqui2');
         return redirect()->route('eventos.index')->with('success', 'Evento creado correctamente.');
     }
 
     public function edit(Evento $evento)
     {
+        if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
+            return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para editar este evento.');
+        }
+
         $evento->load('imagenes');
-        $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
+        
+        // Condicionar los lugares según el rol
+        if (Auth::user()->rol === 'organizador') {
+            $lugares = Lugar::where('user_id', Auth::id())->orderBy('nombre')->pluck('nombre', 'id');
+        } else {
+            $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
+        }
+        
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
         return view('admin.eventos.edit', compact('evento', 'lugares', 'users'));
@@ -76,9 +104,17 @@ class EventoController extends Controller
 
     public function update(Request $request, Evento $evento)
     {
+        // Verificar que el organizador solo puede editar sus propios eventos
+        if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
+            return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para editar este evento.');
+        }
+
+        // Validación condicional: user_id es requerido solo si no es organizador
+        $userIdRule = Auth::user()->rol === 'organizador' ? 'nullable' : 'required|integer|exists:users,id';
+
         $data = $request->validate([
             'lugar_id' => 'nullable|integer|exists:lugares,id',
-            'user_id' => 'required|integer|exists:users,id',
+            'user_id' => $userIdRule,
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'fecha_inicio' => 'required|date',
@@ -88,6 +124,17 @@ class EventoController extends Controller
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
+
+        // Si es organizador, validar que el lugar le pertenece y mantener user_id
+        if (Auth::user()->rol === 'organizador') {
+            if ($data['lugar_id']) {
+                $lugar = Lugar::findOrFail($data['lugar_id']);
+                if ($lugar->user_id !== Auth::id()) {
+                    return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para usar este lugar.');
+                }
+            }
+            $data['user_id'] = Auth::id();
+        }
 
         $evento->update($data);
 
@@ -104,13 +151,24 @@ class EventoController extends Controller
             }
         }
 
+        if (Auth::user()->rol === 'organizador') {
+            return redirect()->route('organizador.dashboard')->with('success', 'Evento actualizado correctamente.');
+        }
         return redirect()->route('eventos.index')->with('success', 'Evento actualizado correctamente.');
     }
 
     public function destroy(Evento $evento)
     {
+        // Verificar que el organizador solo puede eliminar sus propios eventos
+        if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
+            abort(403, 'No tienes permiso para eliminar este evento.');
+        }
+
         $evento->delete();
 
+        if (Auth::user()->rol === 'organizador') {
+            return redirect()->route('organizador.dashboard')->with('success', 'Evento eliminado correctamente.');
+        }
         return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
 

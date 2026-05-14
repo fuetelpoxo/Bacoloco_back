@@ -71,7 +71,7 @@ class WebAuthController extends Controller
     {
         $destino = match ($rol) {
             'admin' => route('admin.dashboard'),
-            'organizador' => '/organizador/lugares',
+            'organizador' => route('organizador.dashboard'),
             default => '/lugares',
         };
         return $destino;

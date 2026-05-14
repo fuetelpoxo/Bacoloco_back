@@ -43,6 +43,12 @@
                         <label class="form-label">Puntuación</label>
                         <input type="number" name="puntuacion" value="{{ old('puntuacion', $valoracion->puntuacion) }}" class="form-control" min="1" max="5" required>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-check mt-4">
+                            <input type="checkbox" name="reportado" value="1" class="form-check-input" id="reportado" {{ old('reportado', $valoracion->reportado) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="reportado">Reportado</label>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <label class="form-label">Comentario</label>
                         <textarea name="comentario" class="form-control" rows="3">{{ old('comentario', $valoracion->comentario) }}</textarea>

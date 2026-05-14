@@ -12,6 +12,11 @@ class Valoracion extends Model
         'lugar_id',
         'puntuacion',
         'comentario',
+        'reportado',
+    ];
+
+    protected $casts = [
+        'reportado' => 'boolean',
     ];
 
 

@@ -32,6 +32,13 @@
                 @endforeach
             </select>
         </div>
+        <div class="col-md-2">
+            <select name="reportado" class="form-select">
+                <option value="">Reportado (Todos)</option>
+                <option value="0" {{ request('reportado') === '0' ? 'selected' : '' }}>No</option>
+                <option value="1" {{ request('reportado') === '1' ? 'selected' : '' }}>Sí</option>
+            </select>
+        </div>
 
         <div class="col-md-12 d-flex justify-content-end gap-2">
             <button type="submit" class="btn btn-dark">Filtrar</button>
@@ -49,6 +56,7 @@
                             <th>Lugar</th>
                             <th>Puntuación</th>
                             <th>Comentario</th>
+                            <th>Reportado</th>
                             <th>Fecha de creación</th>
                             <th class="text-end">Acciones</th>
                         </tr>
@@ -60,6 +68,7 @@
                                 <td>{{ $valoracion->lugar->nombre ?? 'N/A' }}</td>
                                 <td>{{ $valoracion->puntuacion }} / 5</td>
                                 <td>{{ Str::limit($valoracion->comentario, 50) }}</td>
+                                <td>{{ $valoracion->reportado ? 'Sí' : 'No' }}</td>
                                 <td>{{ $valoracion->created_at ? $valoracion->created_at->format('d/m/Y H:i') : 'N/A' }}</td>
                                 <td class="text-end">
                                     <a href="{{ route('valoraciones.edit', $valoracion) }}" class="btn btn-sm btn-outline-dark">Editar</a>
@@ -72,7 +81,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">No hay valoraciones registradas.</td>
+                                <td colspan="7" class="text-center text-muted py-4">No hay valoraciones registradas.</td>
                             </tr>
                         @endforelse
                     </tbody>
