@@ -1,179 +1,345 @@
 @extends('organizador.layouts.organizador')
 
 @section('content')
-<div class="container-fluid bg-white text-dark py-3">
+    <div class="container-fluid bg-light min-vh-100 py-4 px-4">
 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    @if ($lugares->isEmpty())
-        <div class="alert alert-info">
-            <p>No tienes lugares creados.</p>
-        </div>
-    @else
-        <!-- PANEL DE CREACIÓN DE EVENTOS -->
-        <div class="card shadow-sm rounded-3 border mb-4">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">{{ $lugarSeleccionado->nombre ?? '' }} - Panel de Control</h5>
+        <!-- HEADER & SELECTOR -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6">
+                <h1 class="h3 fw-bold mb-1 text-dark">Panel de Gestión</h1>
+                <p class="text-muted mb-0">Administrando: <strong>{{ $lugarSeleccionado->nombre ?? 'Sin lugar' }}</strong>
+                </p>
             </div>
-            <div class="card-body p-4">
+            <div class="col-md-6 d-flex justify-content-md-end gap-2 mt-3 mt-md-0">
                 @if ($lugares->count() > 1)
-                    <form method="GET" class="mb-3">
-                        <div class="row gy-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Selecciona un lugar</label>
-                                <select name="lugar_id" class="form-select" onchange="this.form.submit()">
-                                    @foreach ($lugares as $lugar)
-                                        <option value="{{ $lugar->id }}" {{ $lugarSeleccionado && $lugarSeleccionado->id == $lugar->id ? 'selected' : '' }}>
-                                            {{ $lugar->nombre }} ({{ $lugar->municipio }})
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                @else
-                    <p class="text-muted mb-3">Lugar: <strong>{{ $lugarSeleccionado->nombre }}</strong> ({{ $lugarSeleccionado->municipio }})</p>
-                @endif
-
-                <div class="divider my-3"></div>
-
-                <!-- Formulario de creación de evento -->
-                <h6 class="mb-3">Crear nuevo evento</h6>
-                <form action="{{ route('eventos.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="lugar_id" value="{{ $lugarSeleccionado->id }}">
-                    
-                    <div class="row gy-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nombre del evento</label>
-                            <input type="text" name="nombre" value="{{ old('nombre') }}" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Precio</label>
-                            <input type="number" step="0.01" min="0" name="precio" value="{{ old('precio') }}" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Fecha inicio</label>
-                            <input type="datetime-local" name="fecha_inicio" value="{{ old('fecha_inicio') }}" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Fecha fin</label>
-                            <input type="datetime-local" name="fecha_fin" value="{{ old('fecha_fin') }}" class="form-control">
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label">Descripción</label>
-                            <textarea name="descripcion" class="form-control" rows="3">{{ old('descripcion') }}</textarea>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label">Imágenes</label>
-                            <input type="file" name="imagenes[]" class="form-control" accept="image/*" multiple>
-                        </div>
-                        <div class="col-md-12 text-end">
-                            <button type="submit" class="btn btn-dark">Crear evento</button>
-                        </div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark shadow-sm px-4 dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-geo-alt me-1"></i>{{ $lugarSeleccionado->nombre }}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
+                            @foreach ($lugares as $lugar)
+                                <li>
+                                    <a class="dropdown-item {{ $lugarSeleccionado && $lugarSeleccionado->id == $lugar->id ? 'active' : '' }}"
+                                        href="{{ route('organizador.dashboard', ['lugar_id' => $lugar->id]) }}">
+                                        {{ $lugar->nombre }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
+                @endif
+                <!-- Botón que activa el Modal de creación -->
+                <button class="btn btn-dark shadow-sm  px-4" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                    <i class="bi bi-plus-lg me-2"></i>Nuevo Evento
+                </button>
+                <a href="http://localhost:5173" class="btn btn-outline-secondary shadow-sm px-4" target="_blank">
+                    <i class="bi bi-box-arrow-up-right me-1"></i>Ir al sitio
+                </a>
+                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger shadow-sm  px-4">
+                        Cerrar sesión
+                    </button>
                 </form>
             </div>
         </div>
 
-        <!-- LISTA DE EVENTOS -->
-        <div class="card shadow-sm rounded-3 border mb-4">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Eventos - {{ $lugarSeleccionado->nombre }}</h5>
+        @if (session('success'))
+            <div class="alert alert-success border-0 shadow-sm rounded-3 mb-4">{{ session('success') }}</div>
+        @endif
+
+        @if ($lugares->isEmpty())
+            <div class="text-center py-5">
+                <img src="/path-to-empty-img.svg" width="150" alt="vacio" class="mb-3 opacity-50">
+                <h4>No tienes lugares registrados</h4>
+                <a href="{{ route('lugares.create') }}" class="btn btn-primary mt-2">Crear mi primer lugar</a>
             </div>
-            <div class="card-body p-4">
-                @if ($eventos->isEmpty())
-                    <p class="text-muted text-center py-4">No hay eventos para este lugar.</p>
-                @else
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover align-middle">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Fecha inicio</th>
-                                    <th>Fecha fin</th>
-                                    <th>Precio</th>
-                                    <th>Activo</th>
-                                    <th class="text-end">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($eventos as $evento)
-                                    <tr>
-                                        <td>{{ $evento->nombre }}</td>
-                                        <td>{{ $evento->fecha_inicio->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $evento->fecha_fin ? $evento->fecha_fin->format('d/m/Y H:i') : 'N/A' }}</td>
-                                        <td>{{ $evento->precio ? number_format($evento->precio, 2) : 'Gratis' }}</td>
-                                        <td>{{ $evento->activo ? 'Sí' : 'No' }}</td>
-                                        <td class="text-end">
-                                            <a href="{{ route('eventos.edit', $evento) }}" class="btn btn-sm btn-outline-dark">Editar</a>
-                                            <form action="{{ route('eventos.destroy', $evento) }}" method="POST" class="d-inline-block" onsubmit="return confirm('¿Eliminar este evento?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+        @else
+            <!-- STATS RÁPIDAS -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-3">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4>Eventos</h4>
+                                <span class="h4 fw-bold mb-0">{{ $eventos->count() }}</span>
+                            </div>
+                        </div>
                     </div>
-                @endif
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-3">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4>Valoración Media</h4>
+                                <span class="h4 fw-bold mb-0">{{ number_format($valoraciones->avg('puntuacion'), 1) }} /
+                                    5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-3">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4>Reseñas</h4>
+                                <span class="h4 fw-bold mb-0">{{ $valoraciones->count() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- EVENTOS (Listado Visual) -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="fw-bold mb-0">Mis Eventos</h5>
+
+                                <!-- BUSCADOR DE EVENTOS LARAVEL -->
+                                <form action="{{ route('organizador.dashboard') }}" method="GET" class="d-flex gap-2">
+                                    <input type="hidden" name="lugar_id" value="{{ $lugarSeleccionado->id }}">
+                                    <div class="position-relative">
+                                        <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
+                                            <i class="bi bi-search"></i>
+                                        </span>
+                                        <input type="text" name="search" value="{{ request('search') }}"
+                                            class="form-control form-control-sm border-0 bg-light ps-5"
+                                            placeholder="Buscar evento..." style="width: 200px;">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-dark px-3">Buscar</button>
+                                    @if (request('search'))
+                                        <a href="{{ route('organizador.dashboard', ['lugar_id' => $lugarSeleccionado->id]) }}"
+                                            class="btn btn-sm btn-light px-3">Limpiar</a>
+                                    @endif
+                                </form>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Evento</th>
+                                            <th>Fecha</th>
+                                            <th class="text-center">Estado</th>
+                                            <th class="text-end">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="eventsTableBody">
+                                        @foreach ($eventos as $evento)
+                                            <tr class="event-row">
+                                                <td>
+                                                    <div class="fw-bold text-dark event-name">{{ $evento->nombre }}</div>
+                                                    <small
+                                                        class="text-muted">{{ $evento->precio ? number_format($evento->precio, 2) . '€' : 'Gratis' }}</small>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="d-block small text-dark fw-semibold">{{ $evento->fecha_inicio->format('d M, Y') }}</span>
+                                                    <small
+                                                        class="text-muted small">{{ $evento->fecha_inicio->format('H:i') }}</small>
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($evento->activo)
+                                                        <span
+                                                            class="badge bg-success-subtle text-success px-3">Activo</span>
+                                                    @else
+                                                        <span
+                                                            class="badge bg-secondary-subtle text-secondary px-3">Pausado</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-end">
+
+                                                    <button type="button" class="btn btn-sm btn-outline-dark  px-3"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editEventModal{{ $evento->id }}">
+                                                        <i class="bi bi-pencil me-1"></i> Editar
+                                                    </button>
+
+                                                    <form action="{{ route('organizador.eventos.destroy', $evento) }}"
+                                                        method="POST" class="d-inline-block"
+                                                        onsubmit="return confirm('¿Eliminar este evento?');">
+
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
+
+                                                    <div class="modal fade text-start"
+                                                        id="editEventModal{{ $evento->id }}" tabindex="-1"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                            <div class="modal-content border-0 shadow rounded-4">
+                                                                <div class="modal-header border-0 px-4 pt-4">
+                                                                    <h5 class="fw-bold text-dark">Editar Evento:
+                                                                        {{ $evento->nombre }}</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <form
+                                                                    action="{{ route('organizador.eventos.update', $evento) }}"
+                                                                    method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <input type="hidden" name="lugar_id"
+                                                                        value="{{ $evento->lugar_id }}">
+                                                                    <div class="modal-body p-4">
+                                                                        <div class="row g-3">
+                                                                            <div class="col-md-8 text-start">
+                                                                                <label
+                                                                                    class="form-label fw-semibold">Nombre
+                                                                                    del
+                                                                                    evento</label>
+                                                                                <input type="text" name="nombre"
+                                                                                    class="form-control bg-light border-0"
+                                                                                    value="{{ $evento->nombre }}"
+                                                                                    required>
+                                                                            </div>
+                                                                            <div class="col-md-4 text-start">
+                                                                                <label
+                                                                                    class="form-label fw-semibold">Precio
+                                                                                    (€)
+                                                                                </label>
+                                                                                <input type="number" step="0.01"
+                                                                                    name="precio"
+                                                                                    class="form-control bg-light border-0"
+                                                                                    value="{{ $evento->precio }}">
+                                                                            </div>
+                                                                            <div class="col-md-6 text-start">
+                                                                                <label class="form-label fw-semibold">Fecha
+                                                                                    Inicio</label>
+                                                                                <input type="datetime-local"
+                                                                                    name="fecha_inicio"
+                                                                                    class="form-control bg-light border-0"
+                                                                                    value="{{ $evento->fecha_inicio->format('Y-m-d\TH:i') }}"
+                                                                                    required>
+                                                                            </div>
+                                                                            <div class="col-md-6 text-start">
+                                                                                <label class="form-label fw-semibold">Fecha
+                                                                                    Fin</label>
+                                                                                <input type="datetime-local"
+                                                                                    name="fecha_fin"
+                                                                                    class="form-control bg-light border-0"
+                                                                                    value="{{ $evento->fecha_fin ? $evento->fecha_fin->format('Y-m-d\TH:i') : '' }}">
+                                                                            </div>
+                                                                            <div class="col-md-12 text-start">
+                                                                                <label
+                                                                                    class="form-label fw-semibold">Descripción</label>
+                                                                                <textarea name="descripcion" class="form-control bg-light border-0" rows="3">{{ $evento->descripcion }}</textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer border-0 p-4 pt-0">
+                                                                        <button type="button" class="btn btn-light px-4"
+                                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-dark px-4">Guardar
+                                                                            Cambios</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VALORACIONES (Sidebar de feedback) -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-4">Feedback Reciente</h5>
+                            @foreach ($valoraciones->take(5) as $valoracion)
+                                <div class="mb-4 pb-3 border-bottom border-light last-child-no-border">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="fw-bold small">{{ $valoracion->user->nombre ?? 'Anónimo' }}</span>
+                                        <span class="text-warning small">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i
+                                                    class="bi bi-star{{ $i <= $valoracion->puntuacion ? '-fill' : '' }}"></i>
+                                            @endfor
+                                        </span>
+                                    </div>
+                                    <p class="text-muted small mb-2">"{{ Str::limit($valoracion->comentario, 60) }}"</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"
+                                            style="font-size: 0.7rem;">{{ $valoracion->created_at->diffForHumans() }}</small>
+                                        <form action="{{ route('valoraciones.reportar', $valoracion->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <button
+                                                class="btn btn-link p-0 text-{{ $valoracion->reportado ? 'warning' : 'muted' }} small text-decoration-none">
+                                                <i class="bi bi-flag-fill"></i>
+                                                {{ $valoracion->reportado ? 'Reportado' : 'Reportar' }}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <!-- MODAL PARA CREAR EVENTO (Mantiene el dashboard limpio) -->
+    <div class="modal fade" id="createEventModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow rounded-4">
+                <div class="modal-header border-0 px-4 pt-4">
+                    <h5 class="fw-bold">Crear Nuevo Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('organizador.eventos.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body p-4">
+                        <input type="hidden" name="lugar_id" value="{{ $lugarSeleccionado->id ?? '' }}">
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label fw-semibold">Nombre del evento</label>
+                                <input type="text" name="nombre" class="form-control bg-light border-0"
+                                    placeholder="Ej: Concierto Rock" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Precio (€)</label>
+                                <input type="number" step="0.01" name="precio"
+                                    class="form-control bg-light border-0" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Fecha Inicio</label>
+                                <input type="datetime-local" name="fecha_inicio" class="form-control bg-light border-0"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Fecha Fin</label>
+                                <input type="datetime-local" name="fecha_fin" class="form-control bg-light border-0">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">Descripción</label>
+                                <textarea name="descripcion" class="form-control bg-light border-0" rows="3" placeholder="Cuéntanos más..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-dark px-4">Publicar Evento</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <!-- VALORACIONES DEL LUGAR -->
-        <div class="card shadow-sm rounded-3 border">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Valoraciones - {{ $lugarSeleccionado->nombre }}</h5>
-            </div>
-            <div class="card-body p-4">
-                @if ($valoraciones->isEmpty())
-                    <p class="text-muted text-center py-4">No hay valoraciones para este lugar.</p>
-                @else
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover align-middle">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th>Puntuación</th>
-                                    <th>Comentario</th>
-                                    <th>Reportado</th>
-                                    <th>Fecha</th>
-                                    <th class="text-end">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($valoraciones as $valoracion)
-                                    <tr>
-                                        <td>{{ $valoracion->user->nombre ?? 'Anónimo' }}</td>
-                                        <td>{{ $valoracion->puntuacion }} / 5</td>
-                                        <td>{{ Str::limit($valoracion->comentario, 80) }}</td>
-                                        <td>{{ $valoracion->reportado ? 'Sí' : 'No' }}</td>
-                                        <td>{{ $valoracion->created_at->format('d/m/Y H:i') }}</td>
-                                        <td class="text-end">
-                                            <form action="{{ route('valoraciones.reportar', $valoracion->id) }}" method="POST" class="d-inline-block">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm {{ $valoracion->reportado ? 'btn-warning' : 'btn-outline-warning' }}">
-                                                    {{ $valoracion->reportado ? 'Reportado' : 'Reportar' }}
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="d-flex justify-content-center mt-4">
-                        {{ $valoraciones->links() }}
-                    </div>
-                @endif
-            </div>
-        </div>
-    @endif
-
-</div>
+    </div>
 @endsection

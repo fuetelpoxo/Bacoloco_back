@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\EventoController;
-use App\Http\Controllers\Api\FavoritosController;
+use App\Http\Controllers\Api\FavoritoController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\ValoracionesController;
+use App\Http\Controllers\Api\ValoracionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LugarController;
 
@@ -15,10 +15,15 @@ Route::controller(AuthController::class)->group(function () {
     Route::middleware('auth:sanctum')->post('/logout', 'logout');
 });
 
+Route::middleware('auth:sanctum')->get('/me', function (\Illuminate\Http\Request $request) {
+    return $request->user();
+});
+
 //RUTAS API LUGARES
 Route::prefix('lugares')->controller(LugarController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/mapa', 'getDatosMapa');
+    Route::get('/mejores', 'getMejores');
     Route::get('/{id}', 'show');
 });
 
@@ -30,14 +35,14 @@ Route::prefix('eventos')->controller(EventoController::class)->group(function ()
 
 
 //RUTAS API FAVORITOS
-Route::middleware('auth:sanctum')->prefix('favoritos')->controller(FavoritosController::class)->group(function () {
+Route::middleware('auth:sanctum')->prefix('favoritos')->controller(FavoritoController::class)->group(function () {
     Route::post('/', 'store');
     Route::get('/usuario', 'index');
     Route::delete('/{id}', 'destroy');
 });
 
 //RUTAS API VALORACIONES
-Route::middleware('auth:sanctum')->prefix('valoraciones')->controller(ValoracionesController::class)->group(function () {
+Route::middleware('auth:sanctum')->prefix('valoraciones')->controller(ValoracionController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
     Route::put('/{id}', 'update');

@@ -98,6 +98,47 @@ class LugarController extends Controller
     }
 
     /**
+     * Obtiene los mejores lugares basados en su valoración media.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getMejores(Request $request)
+    {
+        try {
+            $query = Lugar::withAvg('valoraciones', 'puntuacion')
+                ->with('tipo:id,nombre', 'imagenes')
+                ->has('valoraciones')
+                ->orderByDesc('valoraciones_avg_puntuacion');
+
+            if ($request->has('tipo_id')) {
+                $query->where('tipo_id', $request->tipo_id);
+            }
+
+            $limit = $request->has('limit') ? (int) $request->limit : 5;
+            $lugares = $query->take($limit)->get();
+
+            // Fallback: si no hay suficientes con valoración, traer los más recientes
+            if ($lugares->isEmpty()) {
+                $queryFallback = Lugar::withAvg('valoraciones', 'puntuacion')
+                    ->with('tipo:id,nombre', 'imagenes')
+                    ->orderByDesc('created_at');
+                    
+                if ($request->has('tipo_id')) {
+                    $queryFallback->where('tipo_id', $request->tipo_id);
+                }
+                $lugares = $queryFallback->take($limit)->get();
+            }
+
+            return response()->json($lugares);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error al obtener los mejores lugares.',
+            ], 500);
+        }
+    }
+
+    /**
      * Muestra el detalle completo de un lugar
      * junto con todas sus relaciones.
      *

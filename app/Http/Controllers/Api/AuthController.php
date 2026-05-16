@@ -66,32 +66,36 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $request->session()->regenerate();
+
         $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login correcto',
-            'user' => $user,
-            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'nombre' => $user->nombre,
+                'email' => $user->email,
+                'rol' => $user->rol,
+            ],
         ]);
     }
 
     public function logout(Request $request)
     {
-        $user = $request->user();
+        $isJson = $request->expectsJson();
 
-        if ($user && $user->currentAccessToken()) {
-            $user->currentAccessToken()->delete();
-        }
-
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return response()->json([
-            'message' => 'Logout correcto.'
-        ]);
+        if ($isJson) {
+            return response()->json([
+                'message' => 'Logout correcto.'
+            ]);
+        }
+
+        return redirect('http://localhost:5173/login');
     }
 }

@@ -33,7 +33,10 @@
         </li>
 
     </ul>
-    <form action="{{ route('logout') }}" method="POST" class="mt-auto">
+    <a href="http://localhost:5173" class="btn btn-outline-light w-100 mb-2" target="_blank">
+        Ir al sitio
+    </a>
+    <form action="{{ route('logout') }}" method="POST">
         @csrf
 
         <button type="submit" class="btn btn-outline-danger w-100">

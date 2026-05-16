@@ -7,17 +7,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValoracionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrganizadorController;
-use App\Http\Controllers\Auth\WebAuthController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', [WebAuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [WebAuthController::class, 'login']);
-Route::post('/logout', [WebAuthController::class, 'logout'])->name('logout');
-
-// Redirigir la raíz al login (así si no ponen url exacta, los manda al login)
+// Redirigir la raíz al front en React
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect('http://localhost:5173');
 });
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -34,13 +32,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 
 Route::middleware(['auth', 'role:organizador'])->prefix('organizador')->group(function () {
-    Route::get('/dashboard', [OrganizadorController::class, 'dashboard'])->name('organizador.dashboard');
+    Route::get('/', [OrganizadorController::class, 'dashboard'])->name('organizador.dashboard');
     Route::post('/valoraciones/{valoracionId}/reportar', [OrganizadorController::class, 'reportarValoracion'])->name('valoraciones.reportar');
-    
+
     Route::resource('eventos', EventoController::class)
         ->only(['create', 'store', 'edit', 'update', 'destroy'])
-        ->parameters(['eventos' => 'evento']);
-    
+        ->parameters(['eventos' => 'evento'])
+        ->names('organizador.eventos');
     Route::resource('lugares', LugarController::class)
         ->parameters(['lugares' => 'lugar']);
 

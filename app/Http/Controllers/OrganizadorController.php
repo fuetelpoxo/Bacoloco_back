@@ -39,8 +39,12 @@ class OrganizadorController extends Controller
             $lugarId = $lugarSeleccionado->id;
         }
 
-        // Obtener eventos del lugar seleccionado
+        // Obtener eventos del lugar seleccionado con filtro de búsqueda
+        $search = $request->input('search');
         $eventos = $lugarSeleccionado->eventos()
+            ->when($search, function ($query, $search) {
+                return $query->where('nombre', 'like', '%' . $search . '%');
+            })
             ->orderByDesc('fecha_inicio')
             ->get();
 
@@ -57,7 +61,7 @@ class OrganizadorController extends Controller
     public function reportarValoracion($valoracionId)
     {
         $valoracion = Valoracion::findOrFail($valoracionId);
-        
+
         // Verificar que el lugar pertenece al usuario
         if ($valoracion->lugar->user_id !== Auth::id()) {
             abort(403);

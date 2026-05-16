@@ -35,10 +35,12 @@ class EventoController extends Controller
 
     public function store(Request $request)
     {
+        // 1. Condicionar la regla del user_id (igual que en tu update)
+        $userIdRule = Auth::user()->rol === 'organizador' ? 'nullable' : 'required|integer|exists:users,id';
 
         $data = $request->validate([
             'lugar_id' => 'nullable|integer|exists:lugares,id',
-            'user_id' => 'required|integer|exists:users,id',
+            'user_id' => $userIdRule, // <-- Cambiado aquí
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'fecha_inicio' => 'required|date',
@@ -51,19 +53,20 @@ class EventoController extends Controller
 
         // Si es organizador, validar que el lugar le pertenece y auto-asignar user_id
         if (Auth::user()->rol === 'organizador') {
-            if ($data['lugar_id']) {
+            if ($data['lugar_id'] ?? null) {
                 $lugar = Lugar::findOrFail($data['lugar_id']);
                 if ($lugar->user_id !== Auth::id()) {
                     return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para crear eventos en este lugar.');
                 }
             }
-            $data['user_id'] = Auth::id();
+            $data['user_id'] = Auth::id(); // Aquí le asignamos su ID
         }
 
         $evento = Evento::create($data);
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $archivo) {
+                // Guardar la imagen en storage/app/public/eventos
                 $ruta = $archivo->store('eventos', 'public');
 
                 $imagen = Imagen::create([
@@ -71,14 +74,16 @@ class EventoController extends Controller
                     'tipo' => 'evento',
                 ]);
 
+                // Relacionar la imagen con el evento
                 $evento->imagenes()->attach($imagen->id);
             }
         }
+
+        // 2. Redireccionar directamente dónde queremos que acabe, sin confusiones
         if (Auth::user()->rol === 'organizador') {
-            dd('aqui');
             return redirect()->route('organizador.dashboard')->with('success', 'Evento creado correctamente.');
         }
-        dd('aqui2');
+
         return redirect()->route('eventos.index')->with('success', 'Evento creado correctamente.');
     }
 
@@ -89,14 +94,14 @@ class EventoController extends Controller
         }
 
         $evento->load('imagenes');
-        
+
         // Condicionar los lugares según el rol
         if (Auth::user()->rol === 'organizador') {
             $lugares = Lugar::where('user_id', Auth::id())->orderBy('nombre')->pluck('nombre', 'id');
         } else {
             $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         }
-        
+
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
 
         return view('admin.eventos.edit', compact('evento', 'lugares', 'users'));
@@ -127,7 +132,7 @@ class EventoController extends Controller
 
         // Si es organizador, validar que el lugar le pertenece y mantener user_id
         if (Auth::user()->rol === 'organizador') {
-            if ($data['lugar_id']) {
+            if ($data['lugar_id'] ?? null) {
                 $lugar = Lugar::findOrFail($data['lugar_id']);
                 if ($lugar->user_id !== Auth::id()) {
                     return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para usar este lugar.');
