@@ -63,6 +63,17 @@ class ValoracionController extends Controller
             ], 422);
         }
 
+        // Verificar si el usuario ya ha valorado este lugar
+        $existe = Valoracion::where('user_id', Auth::id())
+            ->where('lugar_id', $request->lugar_id)
+            ->first();
+
+        if ($existe) {
+            return response()->json([
+                'message' => 'Ya has valorado este lugar anteriormente.',
+            ], 403);
+        }
+
         try {
             $valoracion = Valoracion::create([
                 'user_id' => Auth::id(),
@@ -150,6 +161,27 @@ class ValoracionController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'No se pudo eliminar la valoración.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Obtiene las valoraciones paginadas de un lugar.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function porLugar($id)
+    {
+        try {
+            $valoraciones = Valoracion::where('lugar_id', $id)
+                ->orderByDesc('created_at')
+                ->paginate(3);
+
+            return response()->json($valoraciones);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error al obtener las valoraciones.',
             ], 500);
         }
     }

@@ -27,6 +27,9 @@ Route::prefix('lugares')->controller(LugarController::class)->group(function () 
     Route::get('/{id}', 'show');
 });
 
+//RUTAS API VALORACIONES PUBLICAS (paginadas por lugar)
+Route::get('/lugares/{id}/valoraciones', [ValoracionController::class, 'porLugar']);
+
 
 //RUTAS API EVENTOS
 Route::prefix('eventos')->controller(EventoController::class)->group(function () {

@@ -24,10 +24,13 @@ class LugarController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = Lugar::with('etiquetas', 'imagenes');
+            $query = Lugar::with('etiquetas', 'imagenes')
+                ->withAvg('valoraciones', 'puntuacion');
 
-            if ($request->tipo) {
-                $query->where('tipo', $request->tipo);
+            if ($request->has('tipo_id')) {
+                $query->where('tipo_id', $request->tipo_id);
+            } elseif ($request->has('tipo')) {
+                $query->where('tipo_id', $request->tipo);
             }
 
             if ($request->municipio) {

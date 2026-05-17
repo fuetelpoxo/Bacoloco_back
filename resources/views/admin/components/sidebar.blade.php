@@ -33,7 +33,7 @@
         </li>
 
     </ul>
-    <a href="http://localhost:5173" class="btn btn-outline-light w-100 mb-2" target="_blank">
+    <a href="http://localhost:5173" class="btn btn-outline-light w-100 mb-2">
         Ir al sitio
     </a>
     <form action="{{ route('logout') }}" method="POST">

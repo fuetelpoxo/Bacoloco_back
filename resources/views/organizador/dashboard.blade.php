@@ -33,7 +33,7 @@
                 <button class="btn btn-dark shadow-sm  px-4" data-bs-toggle="modal" data-bs-target="#createEventModal">
                     <i class="bi bi-plus-lg me-2"></i>Nuevo Evento
                 </button>
-                <a href="http://localhost:5173" class="btn btn-outline-secondary shadow-sm px-4" target="_blank">
+                <a href="http://localhost:5173" class="btn btn-outline-secondary shadow-sm px-4">
                     <i class="bi bi-box-arrow-up-right me-1"></i>Ir al sitio
                 </a>
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
