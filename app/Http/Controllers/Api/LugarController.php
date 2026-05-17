@@ -26,24 +26,7 @@ class LugarController extends Controller
         try {
             $query = Lugar::with('etiquetas', 'imagenes')
                 ->withAvg('valoraciones', 'puntuacion');
-
-            if ($request->has('tipo_id')) {
-                $query->where('tipo_id', $request->tipo_id);
-            } elseif ($request->has('tipo')) {
-                $query->where('tipo_id', $request->tipo);
-            }
-
-            if ($request->municipio) {
-                $query->where('municipio', $request->municipio);
-            }
-
-            if ($request->buscar) {
-                $query->where('nombre', 'like', '%' . $request->buscar . '%');
-            }
-
-            if ($request->order) {
-                $query->orderBy($request->order, 'desc');
-            }
+            $this->aplicarFiltros($query, $request);
 
             $lugares = $query->get();
 
@@ -175,5 +158,35 @@ class LugarController extends Controller
                 'message' => 'Error al obtener la información del lugar.',
             ], 500);
         }
+    }
+
+    /**
+     * Aplica los filtros de búsqueda a la consulta de lugares.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function aplicarFiltros($query, Request $request)
+    {
+        if ($request->has('tipo_id')) {
+            $query->where('tipo_id', $request->tipo_id);
+        } elseif ($request->has('tipo')) {
+            $query->where('tipo_id', $request->tipo);
+        }
+
+        if ($request->municipio) {
+            $query->where('municipio', $request->municipio);
+        }
+
+        if ($request->buscar) {
+            $query->where('nombre', 'like', '%' . $request->buscar . '%');
+        }
+
+        if ($request->order) {
+            $query->orderBy($request->order, 'desc');
+        }
+
+        return $query;
     }
 }

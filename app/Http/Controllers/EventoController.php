@@ -40,7 +40,7 @@ class EventoController extends Controller
 
         $data = $request->validate([
             'lugar_id' => 'nullable|integer|exists:lugares,id',
-            'user_id' => $userIdRule, // <-- Cambiado aquí
+            'user_id' => $userIdRule,
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'fecha_inicio' => 'required|date',
@@ -59,7 +59,7 @@ class EventoController extends Controller
                     return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para crear eventos en este lugar.');
                 }
             }
-            $data['user_id'] = Auth::id(); // Aquí le asignamos su ID
+            $data['user_id'] = Auth::id();
         }
 
         $evento = Evento::create($data);

@@ -34,7 +34,8 @@ class AuthController extends Controller
                 'rol' => 'usuario',
             ]);
 
-            $token = $user->createToken('auth_token')->plainTextToken;
+            Auth::login($user);
+            $request->session()->regenerate();
 
             return response()->json([
                 'message' => 'Usuario registrado correctamente.',
@@ -44,7 +45,6 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'rol' => $user->rol,
                 ],
-                'token' => $token,
             ], 201);
         } catch (\Exception) {
             return response()->json([
