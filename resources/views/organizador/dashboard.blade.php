@@ -155,7 +155,7 @@
                                                     <button type="button" class="btn btn-sm btn-outline-dark  px-3"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editEventModal{{ $evento->id }}">
-                                                        <i class="bi bi-pencil me-1"></i> Editar
+                                                        Editar
                                                     </button>
 
                                                     <form action="{{ route('organizador.eventos.destroy', $evento) }}"
@@ -232,6 +232,40 @@
                                                                                 <label
                                                                                     class="form-label fw-semibold">Descripción</label>
                                                                                 <textarea name="descripcion" class="form-control bg-light border-0" rows="3">{{ $evento->descripcion }}</textarea>
+                                                                            </div>
+                                                                            {{-- Imágenes existentes --}}
+                                                                            @if ($evento->imagenes->isNotEmpty())
+                                                                                <div class="col-md-12 text-start">
+                                                                                    <label
+                                                                                        class="form-label fw-semibold">Fotos
+                                                                                        actuales</label>
+                                                                                    <div class="d-flex flex-wrap gap-2">
+                                                                                        @foreach ($evento->imagenes as $imagen)
+                                                                                            <div class="position-relative"
+                                                                                                style="width: 100px; height: 100px;">
+                                                                                                <img src="{{ asset('storage/' . $imagen->ruta) }}"
+                                                                                                    class="rounded-3 w-100 h-100 object-fit-cover border"
+                                                                                                    alt="Foto del evento">
+                                                                                            </div>
+                                                                                        @endforeach
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endif
+                                                                            {{-- Subir nuevas imágenes --}}
+                                                                            <div class="col-md-12 text-start">
+                                                                                <label
+                                                                                    class="form-label fw-semibold">Añadir
+                                                                                    fotos <span
+                                                                                        class="text-muted fw-normal">(máx.
+                                                                                        3, hasta 2MB c/u)</span></label>
+                                                                                <input type="file" name="imagenes[]"
+                                                                                    class="form-control bg-light border-0 image-input"
+                                                                                    accept="image/jpeg,image/png,image/gif,image/webp"
+                                                                                    multiple data-max-files="3"
+                                                                                    data-max-size="2097152">
+                                                                                <div class="form-text">Las fotos nuevas se
+                                                                                    añaden sin reemplazar las existentes.
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -332,6 +366,15 @@
                                 <label class="form-label fw-semibold">Descripción</label>
                                 <textarea name="descripcion" class="form-control bg-light border-0" rows="3" placeholder="Cuéntanos más..."></textarea>
                             </div>
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">Imágenes <span class="text-muted fw-normal">(máx. 3,
+                                        hasta 2MB cada una)</span></label>
+                                <input type="file" name="imagenes[]"
+                                    class="form-control bg-light border-0 image-input"
+                                    accept="image/jpeg,image/png,image/gif,image/webp" multiple data-max-files="3"
+                                    data-max-size="2097152">
+                                <div class="form-text">Formatos: JPG, PNG, GIF, WebP</div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer border-0 p-4 pt-0">
@@ -343,3 +386,34 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const MAX_FILES = 3;
+            const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+            document.querySelectorAll('.image-input').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    const files = this.files;
+                    let errors = [];
+
+                    if (files.length > MAX_FILES) {
+                        errors.push('Solo puedes subir un máximo de ' + MAX_FILES + ' imágenes.');
+                    }
+
+                    for (let i = 0; i < files.length; i++) {
+                        if (files[i].size > MAX_SIZE) {
+                            errors.push('"' + files[i].name + '" supera los 2MB permitidos.');
+                        }
+                    }
+
+                    if (errors.length > 0) {
+                        alert(errors.join('\n'));
+                        this.value = '';
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

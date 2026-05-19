@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,7 @@ class UserController extends Controller
         return view('admin.usuarios.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ImageService $imageService)
     {
         $data = $request->validate([
             'nombre' => 'required|string|max:255',
@@ -40,7 +41,7 @@ class UserController extends Controller
 
         // Procesar logo/avatar si existe
         if ($request->hasFile('avatar')) {
-            $ruta = $request->file('avatar')->store('usuarios/logos', 'public');
+            $ruta = $imageService->optimizarYGuardar($request->file('avatar'), 'usuarios/logos', 400);
             $data['avatar'] = $ruta;
         }
 
@@ -54,7 +55,7 @@ class UserController extends Controller
         return view('admin.usuarios.edit', compact('usuario'));
     }
 
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, User $usuario, ImageService $imageService)
     {
         $data = $request->validate([
             'nombre' => 'required|string|max:255',
@@ -78,7 +79,7 @@ class UserController extends Controller
                 Storage::disk('public')->delete($usuario->avatar);
             }
 
-            $ruta = $request->file('avatar')->store('usuarios/logos', 'public');
+            $ruta = $imageService->optimizarYGuardar($request->file('avatar'), 'usuarios/logos', 400);
             $data['avatar'] = $ruta;
         }
 

@@ -10,38 +10,40 @@
 
         <li class="nav-item mb-2">
             <a href="{{ route('lugares.index') }}" class="nav-link text-white fw-bold">
-                Lugares
+                <i class="bi bi-geo-alt me-2"></i>Lugares
             </a>
         </li>
 
         <li class="nav-item mb-2">
             <a href="{{ route('eventos.index') }}" class="nav-link text-white fw-bold">
-                Eventos
+                <i class="bi bi-calendar-event me-2"></i>Eventos
             </a>
         </li>
 
         <li class="nav-item mb-2">
             <a href="{{ route('usuarios.index') }}" class="nav-link text-white fw-bold">
-                Usuarios
+                <i class="bi bi-people me-2"></i>Usuarios
             </a>
         </li>
 
         <li class="nav-item mb-2">
             <a href="{{ route('valoraciones.index') }}" class="nav-link text-white fw-bold">
-                Valoraciones
+                <i class="bi bi-star me-2"></i>Valoraciones
             </a>
         </li>
 
     </ul>
-    <a href="http://localhost:5173" class="btn btn-outline-light w-100 mb-2">
-        Ir al sitio
-    </a>
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
 
-        <button type="submit" class="btn btn-outline-danger w-100">
-            Cerrar sesión
-        </button>
-    </form>
+    <div class="mt-auto pt-3 border-top border-secondary">
+        <a href="http://localhost:5173" class="btn btn-outline-light w-100 mb-2">
+            <i class="bi bi-box-arrow-up-right me-2"></i>Ir al sitio
+        </a>
+        <form action="{{ route('logout') }}" method="POST" class="m-0">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger w-100">
+                <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+            </button>
+        </form>
+    </div>
 
 </aside>

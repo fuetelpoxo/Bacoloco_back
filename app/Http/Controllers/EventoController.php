@@ -6,6 +6,7 @@ use App\Models\Imagen;
 use App\Models\Evento;
 use App\Models\Lugar;
 use App\Models\User;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,7 @@ class EventoController extends Controller
         return view('admin.eventos.create', compact('lugares', 'users'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ImageService $imageService)
     {
         // 1. Condicionar la regla del user_id (igual que en tu update)
         $userIdRule = Auth::user()->rol === 'organizador' ? 'nullable' : 'required|integer|exists:users,id';
@@ -47,7 +48,7 @@ class EventoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'precio' => 'nullable|numeric|min:0',
             'activo' => 'sometimes|boolean',
-            'imagenes' => 'nullable|array',
+            'imagenes' => 'nullable|array|max:3',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
 
@@ -67,7 +68,7 @@ class EventoController extends Controller
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $archivo) {
                 // Guardar la imagen en storage/app/public/eventos
-                $ruta = $archivo->store('eventos', 'public');
+                $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
 
                 $imagen = Imagen::create([
                     'ruta' => $ruta,
@@ -107,7 +108,7 @@ class EventoController extends Controller
         return view('admin.eventos.edit', compact('evento', 'lugares', 'users'));
     }
 
-    public function update(Request $request, Evento $evento)
+    public function update(Request $request, Evento $evento, ImageService $imageService)
     {
         // Verificar que el organizador solo puede editar sus propios eventos
         if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
@@ -145,7 +146,7 @@ class EventoController extends Controller
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $archivo) {
-                $ruta = $archivo->store('eventos', 'public');
+                $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
 
                 $imagen = Imagen::create([
                     'ruta' => $ruta,

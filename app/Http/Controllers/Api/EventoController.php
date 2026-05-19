@@ -24,7 +24,8 @@ class EventoController extends Controller
         try {
             $evento = Evento::with(
                 'etiquetas',
-                'imagenes'
+                'imagenes',
+                'lugar'
             )->find($id);
 
             if (!$evento) {

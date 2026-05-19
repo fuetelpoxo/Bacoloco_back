@@ -1,8 +1,6 @@
-
 @extends('admin.layouts.admin')
 
 @section('content')
-
     <div class="container-fluid bg-white text-dark py-3">
 
         @if (session('success'))
@@ -55,7 +53,6 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripción</th>
                             <th>Tipo</th>
                             <th>Municipio</th>
                             <th>Dirección</th>
@@ -68,7 +65,6 @@
                         @forelse ($lugares as $lugar)
                             <tr>
                                 <td>{{ $lugar->nombre }}</td>
-                                <td>{{ $lugar->descripcion }}</td>
                                 <td>{{ optional($lugar->tipo)->nombre }}</td>
                                 <td>{{ $lugar->municipio }}</td>
                                 <td>{{ $lugar->direccion }}</td>
@@ -84,8 +80,8 @@
                                     <a href="{{ route('lugares.edit', $lugar) }}" class="btn btn-sm btn-outline-dark">
                                         Editar
                                     </a>
-                                    <form action="{{ route('lugares.destroy', $lugar) }}" method="POST" class="d-inline-block"
-                                        onsubmit="return confirm('¿Eliminar este lugar?');">
+                                    <form action="{{ route('lugares.destroy', $lugar) }}" method="POST"
+                                        class="d-inline-block" onsubmit="return confirm('¿Eliminar este lugar?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
@@ -112,5 +108,4 @@
         </div>
 
     </div>
-
 @endsection

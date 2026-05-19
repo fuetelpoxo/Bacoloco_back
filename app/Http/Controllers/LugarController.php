@@ -6,6 +6,7 @@ use App\Models\Imagen;
 use App\Models\Lugar;
 use App\Models\Tipo;
 use App\Models\User;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 
 class LugarController extends Controller
@@ -31,7 +32,7 @@ class LugarController extends Controller
         return view('admin.lugares.create', compact('tipos', 'users'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ImageService $imageService)
     {
         $data = $request->validate([
             'tipo_id' => 'required|integer|exists:tipos,id',
@@ -53,8 +54,8 @@ class LugarController extends Controller
         // Procesar imágenes si existen
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $archivo) {
-                // Guardar archivo en disco público
-                $ruta = $archivo->store('lugares', 'public');
+                // Guardar archivo optimizado en disco público
+                $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
 
                 // Crear registro de imagen
                 $imagen = Imagen::create([
@@ -79,7 +80,7 @@ class LugarController extends Controller
         return view('admin.lugares.edit', compact('lugar', 'tipos', 'users'));
     }
 
-    public function update(Request $request, Lugar $lugar)
+    public function update(Request $request, Lugar $lugar, ImageService $imageService)
     {
         $data = $request->validate([
             'tipo_id' => 'required|integer|exists:tipos,id',
@@ -99,7 +100,7 @@ class LugarController extends Controller
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $archivo) {
-                $ruta = $archivo->store('lugares', 'public');
+                $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
 
                 $imagen = Imagen::create([
                     'ruta' => $ruta,

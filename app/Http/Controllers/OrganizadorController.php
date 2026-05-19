@@ -42,6 +42,7 @@ class OrganizadorController extends Controller
         // Obtener eventos del lugar seleccionado con filtro de búsqueda
         $search = $request->input('search');
         $eventos = $lugarSeleccionado->eventos()
+            ->with('imagenes')
             ->when($search, function ($query, $search) {
                 return $query->where('nombre', 'like', '%' . $search . '%');
             })
