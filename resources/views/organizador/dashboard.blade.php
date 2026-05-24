@@ -33,7 +33,7 @@
                 <button class="btn btn-dark shadow-sm  px-4" data-bs-toggle="modal" data-bs-target="#createEventModal">
                     <i class="bi bi-plus-lg me-2"></i>Nuevo Evento
                 </button>
-                <a href="http://localhost:5173" class="btn btn-outline-secondary shadow-sm px-4">
+                <a href="{{ config('app.frontend_url') }}" class="btn btn-outline-secondary shadow-sm px-4">
                     <i class="bi bi-box-arrow-up-right me-1"></i>Ir al sitio
                 </a>
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
@@ -267,6 +267,24 @@
                                                                                     añaden sin reemplazar las existentes.
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="col-md-12 text-start etiquetas-wrapper">
+                                                                                <label class="form-label fw-semibold">Etiquetas</label>
+                                                                                <select class="form-select etiquetas-select bg-light border-0">
+                                                                                    <option value="">Seleccione una etiqueta...</option>
+                                                                                    @foreach ($etiquetas as $id => $nombre)
+                                                                                        <option value="{{ $id }}">{{ $nombre }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                                <div class="etiquetas-contenedor d-flex flex-wrap gap-2 mt-2">
+                                                                                    @foreach ($evento->etiquetas as $etiqueta)
+                                                                                        <span class="badge bg-dark text-white p-2 d-inline-flex align-items-center gap-2 rounded" data-badge-id="{{ $etiqueta->id }}">
+                                                                                            {{ $etiqueta->nombre }}
+                                                                                            <button type="button" class="btn-close btn-close-white p-0" style="font-size: 0.65rem;" data-id="{{ $etiqueta->id }}"></button>
+                                                                                        </span>
+                                                                                        <input type="hidden" name="etiquetas[]" value="{{ $etiqueta->id }}">
+                                                                                    @endforeach
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer border-0 p-4 pt-0">
@@ -375,6 +393,18 @@
                                     data-max-size="2097152">
                                 <div class="form-text">Formatos: JPG, PNG, GIF, WebP</div>
                             </div>
+                            <div class="col-md-12 etiquetas-wrapper">
+                                <label class="form-label fw-semibold">Etiquetas</label>
+                                <select class="form-select etiquetas-select bg-light border-0">
+                                    <option value="">Seleccione una etiqueta...</option>
+                                    @foreach ($etiquetas as $id => $nombre)
+                                        <option value="{{ $id }}">{{ $nombre }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="etiquetas-contenedor d-flex flex-wrap gap-2 mt-2">
+                                    {{-- Los inputs ocultos y chapas se inyectarán dinámicamente aquí --}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer border-0 p-4 pt-0">
@@ -388,6 +418,7 @@
 @endsection
 
 @push('scripts')
+    @vite('resources/js/admin/etiquetas.js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const MAX_FILES = 3;

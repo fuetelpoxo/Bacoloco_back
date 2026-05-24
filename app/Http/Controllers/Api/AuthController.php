@@ -96,6 +96,6 @@ class AuthController extends Controller
             ]);
         }
 
-        return redirect('http://localhost:5173/login');
+        return redirect(config('app.frontend_url') . '/login');
     }
 }

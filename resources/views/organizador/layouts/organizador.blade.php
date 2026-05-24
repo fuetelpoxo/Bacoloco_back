@@ -21,22 +21,9 @@
 
     </div>
 
-    <!-- Bootstrap JS (opcional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 
-    {{-- Estilos básicos --}}
-    <style>
-        body {
-            margin: 0;
-            background-color: #f8f9fa;
-        }
-
-        .nav-link:hover {
-            background-color: #495057;
-            border-radius: 5px;
-        }
-    </style>
 
 </body>
 </html>

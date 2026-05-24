@@ -76,6 +76,25 @@
                             <input type="file" name="imagenes[]" class="form-control" multiple accept="image/*">
                             <div class="form-text">Las fotos nuevas se añaden sin reemplazar las existentes.</div>
                         </div>
+                        <div class="col-md-12 etiquetas-wrapper">
+                            <label class="form-label">Etiquetas</label>
+                            <select id="etiquetas-select" class="form-select etiquetas-select">
+                                <option value="">Seleccione una etiqueta...</option>
+                                @foreach ($etiquetas as $id => $nombre)
+                                    <option value="{{ $id }}">{{ $nombre }}</option>
+                                @endforeach
+                            </select>
+                            
+                            <div id="etiquetas-contenedor" class="d-flex flex-wrap gap-2 mt-2 etiquetas-contenedor">
+                                @foreach ($evento->etiquetas as $etiqueta)
+                                    <span class="badge bg-dark text-white p-2 d-inline-flex align-items-center gap-2 rounded" id="badge-etiqueta-{{ $etiqueta->id }}" data-badge-id="{{ $etiqueta->id }}">
+                                        {{ $etiqueta->nombre }}
+                                        <button type="button" class="btn-close btn-close-white p-0" style="font-size: 0.65rem;" data-id="{{ $etiqueta->id }}"></button>
+                                    </span>
+                                    <input type="hidden" name="etiquetas[]" value="{{ $etiqueta->id }}" id="input-etiqueta-{{ $etiqueta->id }}">
+                                @endforeach
+                            </div>
+                        </div>
                         <div class="col-md-12 text-end">
                             <button type="submit" class="btn btn-dark">Actualizar</button>
                         </div>
@@ -109,4 +128,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Script para gestión de etiquetas -->
+    @vite('resources/js/admin/etiquetas.js')
 @endsection

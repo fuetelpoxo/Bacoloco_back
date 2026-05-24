@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lugar;
 use App\Models\Valoracion;
+use App\Models\Etiqueta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ class OrganizadorController extends Controller
         // Obtener eventos del lugar seleccionado con filtro de búsqueda
         $search = $request->input('search');
         $eventos = $lugarSeleccionado->eventos()
-            ->with('imagenes')
+            ->with(['imagenes', 'etiquetas'])
             ->when($search, function ($query, $search) {
                 return $query->where('nombre', 'like', '%' . $search . '%');
             })
@@ -56,7 +57,9 @@ class OrganizadorController extends Controller
             ->paginate(10)
             ->appends($request->query());
 
-        return view('organizador.dashboard', compact('lugares', 'lugarSeleccionado', 'eventos', 'valoraciones'));
+        $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
+
+        return view('organizador.dashboard', compact('lugares', 'lugarSeleccionado', 'eventos', 'valoraciones', 'etiquetas'));
     }
 
     public function reportarValoracion($valoracionId)

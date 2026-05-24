@@ -49,7 +49,7 @@ class LugarController extends Controller
             'activo' => 'sometimes|boolean',
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
-            'etiquetas' => 'nullable|array',
+            'etiquetas' => 'nullable|array|max:4',
             'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
@@ -107,7 +107,7 @@ class LugarController extends Controller
             'activo' => 'sometimes|boolean',
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
-            'etiquetas' => 'nullable|array',
+            'etiquetas' => 'nullable|array|max:4',
             'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 

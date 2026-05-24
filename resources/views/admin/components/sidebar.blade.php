@@ -35,7 +35,7 @@
     </ul>
 
     <div class="mt-auto pt-3 border-top border-secondary">
-        <a href="http://localhost:5173" class="btn btn-outline-light w-100 mb-2">
+        <a href="{{ config('app.frontend_url') }}" class="btn btn-outline-light w-100 mb-2">
             <i class="bi bi-box-arrow-up-right me-2"></i>Ir al sitio
         </a>
         <form action="{{ route('logout') }}" method="POST" class="m-0">

@@ -6,10 +6,12 @@ use App\Models\Imagen;
 use App\Models\Evento;
 use App\Models\Lugar;
 use App\Models\User;
+use App\Models\Etiqueta;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class EventoController extends Controller
 {
@@ -30,8 +32,9 @@ class EventoController extends Controller
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
+        $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('admin.eventos.create', compact('lugares', 'users'));
+        return view('admin.eventos.create', compact('lugares', 'users', 'etiquetas'));
     }
 
     public function store(Request $request, ImageService $imageService)
@@ -50,42 +53,51 @@ class EventoController extends Controller
             'activo' => 'sometimes|boolean',
             'imagenes' => 'nullable|array|max:3',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
+            'etiquetas' => 'nullable|array|max:4',
+            'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
-        // Si es organizador, validar que el lugar le pertenece y auto-asignar user_id
-        if (Auth::user()->rol === 'organizador') {
-            if ($data['lugar_id'] ?? null) {
-                $lugar = Lugar::findOrFail($data['lugar_id']);
-                if ($lugar->user_id !== Auth::id()) {
-                    return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para crear eventos en este lugar.');
+        return DB::transaction(function () use ($request, $data, $imageService) {
+            // Si es organizador, validar que el lugar le pertenece y auto-asignar user_id
+            if (Auth::user()->rol === 'organizador') {
+                if ($data['lugar_id'] ?? null) {
+                    $lugar = Lugar::findOrFail($data['lugar_id']);
+                    if ($lugar->user_id !== Auth::id()) {
+                        return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para crear eventos en este lugar.');
+                    }
+                }
+                $data['user_id'] = Auth::id();
+            }
+
+            $evento = Evento::create($data);
+
+            if ($request->hasFile('imagenes')) {
+                foreach ($request->file('imagenes') as $archivo) {
+                    // Guardar la imagen en storage/app/public/eventos
+                    $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
+
+                    $imagen = Imagen::create([
+                        'ruta' => $ruta,
+                        'tipo' => 'evento',
+                    ]);
+
+                    // Relacionar la imagen con el evento
+                    $evento->imagenes()->attach($imagen->id);
                 }
             }
-            $data['user_id'] = Auth::id();
-        }
 
-        $evento = Evento::create($data);
-
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $archivo) {
-                // Guardar la imagen en storage/app/public/eventos
-                $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
-
-                $imagen = Imagen::create([
-                    'ruta' => $ruta,
-                    'tipo' => 'evento',
-                ]);
-
-                // Relacionar la imagen con el evento
-                $evento->imagenes()->attach($imagen->id);
+            // Asociar etiquetas
+            if ($request->has('etiquetas')) {
+                $evento->etiquetas()->attach($request->input('etiquetas'));
             }
-        }
 
-        // 2. Redireccionar directamente dónde queremos que acabe, sin confusiones
-        if (Auth::user()->rol === 'organizador') {
-            return redirect()->route('organizador.dashboard')->with('success', 'Evento creado correctamente.');
-        }
+            // 2. Redireccionar directamente dónde queremos que acabe, sin confusiones
+            if (Auth::user()->rol === 'organizador') {
+                return redirect()->route('organizador.dashboard')->with('success', 'Evento creado correctamente.');
+            }
 
-        return redirect()->route('eventos.index')->with('success', 'Evento creado correctamente.');
+            return redirect()->route('eventos.index')->with('success', 'Evento creado correctamente.');
+        });
     }
 
     public function edit(Evento $evento)
@@ -94,7 +106,7 @@ class EventoController extends Controller
             return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para editar este evento.');
         }
 
-        $evento->load('imagenes');
+        $evento->load(['imagenes', 'etiquetas']);
 
         // Condicionar los lugares según el rol
         if (Auth::user()->rol === 'organizador') {
@@ -104,8 +116,9 @@ class EventoController extends Controller
         }
 
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
+        $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('admin.eventos.edit', compact('evento', 'lugares', 'users'));
+        return view('admin.eventos.edit', compact('evento', 'lugares', 'users', 'etiquetas'));
     }
 
     public function update(Request $request, Evento $evento, ImageService $imageService)
@@ -129,38 +142,45 @@ class EventoController extends Controller
             'activo' => 'sometimes|boolean',
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
+            'etiquetas' => 'nullable|array|max:4',
+            'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
-        // Si es organizador, validar que el lugar le pertenece y mantener user_id
-        if (Auth::user()->rol === 'organizador') {
-            if ($data['lugar_id'] ?? null) {
-                $lugar = Lugar::findOrFail($data['lugar_id']);
-                if ($lugar->user_id !== Auth::id()) {
-                    return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para usar este lugar.');
+        return DB::transaction(function () use ($request, $data, $evento, $imageService) {
+            // Si es organizador, validar que el lugar le pertenece y mantener user_id
+            if (Auth::user()->rol === 'organizador') {
+                if ($data['lugar_id'] ?? null) {
+                    $lugar = Lugar::findOrFail($data['lugar_id']);
+                    if ($lugar->user_id !== Auth::id()) {
+                        return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para usar este lugar.');
+                    }
+                }
+                $data['user_id'] = Auth::id();
+            }
+
+            $evento->update($data);
+
+            if ($request->hasFile('imagenes')) {
+                foreach ($request->file('imagenes') as $archivo) {
+                    $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
+
+                    $imagen = Imagen::create([
+                        'ruta' => $ruta,
+                        'tipo' => 'evento',
+                    ]);
+
+                    $evento->imagenes()->attach($imagen->id);
                 }
             }
-            $data['user_id'] = Auth::id();
-        }
 
-        $evento->update($data);
+            // Sincronizar etiquetas
+            $evento->etiquetas()->sync($request->input('etiquetas', []));
 
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $archivo) {
-                $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
-
-                $imagen = Imagen::create([
-                    'ruta' => $ruta,
-                    'tipo' => 'evento',
-                ]);
-
-                $evento->imagenes()->attach($imagen->id);
+            if (Auth::user()->rol === 'organizador') {
+                return redirect()->route('organizador.dashboard')->with('success', 'Evento actualizado correctamente.');
             }
-        }
-
-        if (Auth::user()->rol === 'organizador') {
-            return redirect()->route('organizador.dashboard')->with('success', 'Evento actualizado correctamente.');
-        }
-        return redirect()->route('eventos.index')->with('success', 'Evento actualizado correctamente.');
+            return redirect()->route('eventos.index')->with('success', 'Evento actualizado correctamente.');
+        });
     }
 
     public function destroy(Evento $evento)

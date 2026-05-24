@@ -79,9 +79,9 @@
                             <input type="file" name="imagenes[]" class="form-control" accept="image/*" multiple>
                             <small class="text-muted">Puedes seleccionar una o varias imágenes. Formatos soportados: JPG, PNG, GIF, WebP</small>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 etiquetas-wrapper">
                             <label class="form-label">Etiquetas</label>
-                            <select id="etiquetas-select" class="form-select">
+                            <select id="etiquetas-select" class="form-select etiquetas-select">
                                 <option value="">Seleccione una etiqueta...</option>
                                 @foreach ($etiquetas as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
@@ -89,7 +89,7 @@
                             </select>
                             
                             <!-- Contenedor de insignias (badges) -->
-                            <div id="etiquetas-contenedor" class="d-flex flex-wrap gap-2 mt-2">
+                            <div id="etiquetas-contenedor" class="d-flex flex-wrap gap-2 mt-2 etiquetas-contenedor">
                                 {{-- Los inputs ocultos y chapas se inyectarán dinámicamente aquí --}}
                             </div>
                         </div>
@@ -103,5 +103,5 @@
     </div>
 
     <!-- Script para gestión de etiquetas -->
-    <script src="{{ asset('js/admin/lugares.js') }}"></script>
+    @vite('resources/js/admin/etiquetas.js')
 @endsection

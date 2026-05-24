@@ -89,19 +89,18 @@
                             <label class="form-label">Añadir nuevas fotos</label>
                             <input type="file" name="imagenes[]" class="form-control" multiple accept="image/*">
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 etiquetas-wrapper">
                             <label class="form-label">Etiquetas</label>
-                            <select id="etiquetas-select" class="form-select">
+                            <select id="etiquetas-select" class="form-select etiquetas-select">
                                 <option value="">Seleccione una etiqueta...</option>
                                 @foreach ($etiquetas as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>
                             
-                            <!-- Contenedor de insignias (badges) con valores precargados -->
-                            <div id="etiquetas-contenedor" class="d-flex flex-wrap gap-2 mt-2">
+                            <div id="etiquetas-contenedor" class="d-flex flex-wrap gap-2 mt-2 etiquetas-contenedor">
                                 @foreach ($lugar->etiquetas as $etiqueta)
-                                    <span class="badge bg-dark text-white p-2 d-inline-flex align-items-center gap-2 rounded" id="badge-etiqueta-{{ $etiqueta->id }}">
+                                    <span class="badge bg-dark text-white p-2 d-inline-flex align-items-center gap-2 rounded" id="badge-etiqueta-{{ $etiqueta->id }}" data-badge-id="{{ $etiqueta->id }}">
                                         {{ $etiqueta->nombre }}
                                         <button type="button" class="btn-close btn-close-white p-0" style="font-size: 0.65rem;" data-id="{{ $etiqueta->id }}"></button>
                                     </span>
@@ -143,6 +142,5 @@
         </div>
     </div>
 
-    <!-- Script para gestión de etiquetas -->
-    <script src="{{ asset('js/admin/lugares.js') }}"></script>
+    @vite('resources/js/admin/etiquetas.js')
 @endsection

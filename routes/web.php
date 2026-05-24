@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 // Redirigir la raíz al front en React
 Route::get('/', function () {
-    return redirect('http://localhost:5173');
+    return redirect(config('app.frontend_url'));
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

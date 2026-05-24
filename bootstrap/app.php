@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 return null;
             }
 
-            return 'http://localhost:5173/login';
+            return config('app.frontend_url') . '/login';
         });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
