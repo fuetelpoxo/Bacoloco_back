@@ -24,6 +24,7 @@ Route::prefix('lugares')->controller(LugarController::class)->group(function () 
     Route::get('/', 'index');
     Route::get('/mapa', 'getDatosMapa');
     Route::get('/mejores', 'getMejores');
+    Route::get('/{id}/eventos', 'getEventosPorLugar');
     Route::get('/{id}', 'show');
 });
 

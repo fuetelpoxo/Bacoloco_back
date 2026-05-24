@@ -72,7 +72,7 @@ class FavoritoController extends Controller
     public function index()
     {
         try {
-            $favoritos = Favorito::with('lugar')
+            $favoritos = Favorito::with('lugar.imagenes')
                 ->where('user_id', Auth::id())
                 ->get();
 

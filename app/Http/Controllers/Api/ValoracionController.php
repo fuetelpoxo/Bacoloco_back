@@ -19,7 +19,7 @@ class ValoracionController extends Controller
     public function index()
     {
         try {
-            $valoraciones = Valoracion::with('lugar')
+            $valoraciones = Valoracion::with('lugar.imagenes')
                 ->where('user_id', Auth::id())
                 ->get();
 

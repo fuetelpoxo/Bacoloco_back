@@ -189,4 +189,35 @@ class LugarController extends Controller
 
         return $query;
     }
+
+    /**
+     * Devuelve el lugar y todos sus eventos ordenados por fecha de inicio.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getEventosPorLugar($id)
+    {
+        try {
+            $lugar = Lugar::with('imagenes')->find($id);
+
+            if (!$lugar) {
+                return response()->json(['message' => 'Lugar no encontrado.'], 404);
+            }
+
+            $eventos = $lugar->eventos()
+                ->with('imagenes')
+                ->orderBy('fecha_inicio', 'asc')
+                ->get();
+
+            return response()->json([
+                'lugar'   => $lugar,
+                'eventos' => $eventos,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error al obtener los eventos del lugar.',
+            ], 500);
+        }
+    }
 }

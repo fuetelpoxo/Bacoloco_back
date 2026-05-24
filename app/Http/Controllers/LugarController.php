@@ -6,8 +6,10 @@ use App\Models\Imagen;
 use App\Models\Lugar;
 use App\Models\Tipo;
 use App\Models\User;
+use App\Models\Etiqueta;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LugarController extends Controller
 {
@@ -28,8 +30,9 @@ class LugarController extends Controller
     {
         $tipos = Tipo::pluck('nombre', 'id');
         $users = User::pluck('nombre', 'id');
-
-        return view('admin.lugares.create', compact('tipos', 'users'));
+        $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
+ 
+        return view('admin.lugares.create', compact('tipos', 'users', 'etiquetas'));
     }
 
     public function store(Request $request, ImageService $imageService)
@@ -46,38 +49,48 @@ class LugarController extends Controller
             'activo' => 'sometimes|boolean',
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
+            'etiquetas' => 'nullable|array',
+            'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
-        // Crear el lugar
-        $lugar = Lugar::create($data);
+        return DB::transaction(function () use ($request, $data, $imageService) {
+            // Crear el lugar
+            $lugar = Lugar::create($data);
 
-        // Procesar imágenes si existen
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $archivo) {
-                // Guardar archivo optimizado en disco público
-                $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
+            // Procesar imágenes si existen
+            if ($request->hasFile('imagenes')) {
+                foreach ($request->file('imagenes') as $archivo) {
+                    // Guardar archivo optimizado en disco público
+                    $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
 
-                // Crear registro de imagen
-                $imagen = Imagen::create([
-                    'ruta' => $ruta,
-                    'tipo' => 'lugar',
-                ]);
+                    // Crear registro de imagen
+                    $imagen = Imagen::create([
+                        'ruta' => $ruta,
+                        'tipo' => 'lugar',
+                    ]);
 
-                // Asociar imagen al lugar
-                $lugar->imagenes()->attach($imagen->id);
+                    // Asociar imagen al lugar
+                    $lugar->imagenes()->attach($imagen->id);
+                }
             }
-        }
 
-        return redirect()->route('lugares.index')->with('success', 'Lugar creado correctamente.');
+            // Asociar etiquetas
+            if ($request->has('etiquetas')) {
+                $lugar->etiquetas()->attach($request->input('etiquetas'));
+            }
+
+            return redirect()->route('lugares.index')->with('success', 'Lugar creado correctamente.');
+        });
     }
 
     public function edit(Lugar $lugar)
     {
-        $lugar->load('imagenes');
+        $lugar->load(['imagenes', 'etiquetas']);
         $tipos = Tipo::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
-
-        return view('admin.lugares.edit', compact('lugar', 'tipos', 'users'));
+        $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
+ 
+        return view('admin.lugares.edit', compact('lugar', 'tipos', 'users', 'etiquetas'));
     }
 
     public function update(Request $request, Lugar $lugar, ImageService $imageService)
@@ -94,24 +107,31 @@ class LugarController extends Controller
             'activo' => 'sometimes|boolean',
             'imagenes' => 'nullable|array',
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
+            'etiquetas' => 'nullable|array',
+            'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
-        $lugar->update($data);
+        return DB::transaction(function () use ($request, $data, $lugar, $imageService) {
+            $lugar->update($data);
 
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $archivo) {
-                $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
+            if ($request->hasFile('imagenes')) {
+                foreach ($request->file('imagenes') as $archivo) {
+                    $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
 
-                $imagen = Imagen::create([
-                    'ruta' => $ruta,
-                    'tipo' => 'lugar',
-                ]);
+                    $imagen = Imagen::create([
+                        'ruta' => $ruta,
+                        'tipo' => 'lugar',
+                    ]);
 
-                $lugar->imagenes()->attach($imagen->id);
+                    $lugar->imagenes()->attach($imagen->id);
+                }
             }
-        }
 
-        return redirect()->route('lugares.index')->with('success', 'Lugar actualizado correctamente.');
+            // Sincronizar etiquetas
+            $lugar->etiquetas()->sync($request->input('etiquetas', []));
+
+            return redirect()->route('lugares.index')->with('success', 'Lugar actualizado correctamente.');
+        });
     }
 
     public function destroy(Lugar $lugar)
