@@ -90,9 +90,11 @@
                 </div>
 
                 {{-- Paginación --}}
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $usuarios->links() }}
-                </div>
+                @if ($usuarios->hasPages())
+                    <div class="mt-3 d-flex justify-content-end">
+                        {{ $usuarios->withQueryString()->links('pagination::bootstrap-5') }}
+                    </div>
+                @endif
             </div>
         </div>
 

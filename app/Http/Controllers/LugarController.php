@@ -13,11 +13,18 @@ use Illuminate\Support\Facades\DB;
 
 class LugarController extends Controller
 {
+    /**
+     * Muestra la lista de lugares con filtros aplicados.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $filtros = $this->aplicarFiltros($request);
 
-        $lugares = Lugar::withCount('eventos')
+        $lugares = Lugar::with('tipo')
+            ->withCount('eventos')
             ->where($filtros)
             ->paginate(10)
             ->withQueryString();
@@ -26,6 +33,11 @@ class LugarController extends Controller
         return view('admin.lugares.index', compact('lugares', 'tipos'));
     }
 
+    /**
+     * Muestra el formulario para crear un nuevo lugar.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $tipos = Tipo::pluck('nombre', 'id');
@@ -35,6 +47,13 @@ class LugarController extends Controller
         return view('admin.lugares.create', compact('tipos', 'users', 'etiquetas'));
     }
 
+    /**
+     * Guarda un nuevo lugar en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Services\ImageService $imageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, ImageService $imageService)
     {
         $data = $request->validate([
@@ -54,27 +73,21 @@ class LugarController extends Controller
         ]);
 
         return DB::transaction(function () use ($request, $data, $imageService) {
-            // Crear el lugar
             $lugar = Lugar::create($data);
 
-            // Procesar imágenes si existen
             if ($request->hasFile('imagenes')) {
                 foreach ($request->file('imagenes') as $archivo) {
-                    // Guardar archivo optimizado en disco público
                     $ruta = $imageService->optimizarYGuardar($archivo, 'lugares');
 
-                    // Crear registro de imagen
                     $imagen = Imagen::create([
                         'ruta' => $ruta,
                         'tipo' => 'lugar',
                     ]);
 
-                    // Asociar imagen al lugar
                     $lugar->imagenes()->attach($imagen->id);
                 }
             }
 
-            // Asociar etiquetas
             if ($request->has('etiquetas')) {
                 $lugar->etiquetas()->attach($request->input('etiquetas'));
             }
@@ -83,6 +96,12 @@ class LugarController extends Controller
         });
     }
 
+    /**
+     * Muestra el formulario para editar un lugar existente.
+     *
+     * @param \App\Models\Lugar $lugar
+     * @return \Illuminate\View\View
+     */
     public function edit(Lugar $lugar)
     {
         $lugar->load(['imagenes', 'etiquetas']);
@@ -93,6 +112,14 @@ class LugarController extends Controller
         return view('admin.lugares.edit', compact('lugar', 'tipos', 'users', 'etiquetas'));
     }
 
+    /**
+     * Actualiza un lugar existente en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Lugar $lugar
+     * @param \App\Services\ImageService $imageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Lugar $lugar, ImageService $imageService)
     {
         $data = $request->validate([
@@ -127,13 +154,18 @@ class LugarController extends Controller
                 }
             }
 
-            // Sincronizar etiquetas
             $lugar->etiquetas()->sync($request->input('etiquetas', []));
 
             return redirect()->route('lugares.index')->with('success', 'Lugar actualizado correctamente.');
         });
     }
 
+    /**
+     * Elimina un lugar de la base de datos.
+     *
+     * @param \App\Models\Lugar $lugar
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Lugar $lugar)
     {
         $lugar->delete();
@@ -141,6 +173,12 @@ class LugarController extends Controller
         return redirect()->route('lugares.index')->with('success', 'Lugar eliminado correctamente.');
     }
 
+    /**
+     * Genera la lista de filtros aplicados.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     private function aplicarFiltros(Request $request)
     {
         $filtros = [];
@@ -164,3 +202,4 @@ class LugarController extends Controller
         return $filtros;
     }
 }
+

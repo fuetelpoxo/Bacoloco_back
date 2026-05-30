@@ -52,8 +52,8 @@
         @if ($lugares->isEmpty())
             <div class="text-center py-5">
                 <img src="/path-to-empty-img.svg" width="150" alt="vacio" class="mb-3 opacity-50">
-                <h4>No tienes lugares registrados</h4>
-                <a href="{{ route('lugares.create') }}" class="btn btn-primary mt-2">Crear mi primer lugar</a>
+                <h4>No tienes lugares asignados</h4>
+                <p class="text-muted">Por favor, contacta con el administrador para que te asigne un lugar.</p>
             </div>
         @else
             <!-- STATS RÁPIDAS -->
@@ -73,7 +73,7 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h4>Valoración Media</h4>
-                                <span class="h4 fw-bold mb-0">{{ number_format($valoraciones->avg('puntuacion'), 1) }} /
+                                <span class="h4 fw-bold mb-0">{{ number_format($promedioValoraciones, 1) }} /
                                     5</span>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <h4>Reseñas</h4>
-                                <span class="h4 fw-bold mb-0">{{ $valoraciones->count() }}</span>
+                                <span class="h4 fw-bold mb-0">{{ $totalValoraciones }}</span>
                             </div>
                         </div>
                     </div>
@@ -237,8 +237,7 @@
                                                                             @if ($evento->imagenes->isNotEmpty())
                                                                                 <div class="col-md-12 text-start">
                                                                                     <label
-                                                                                        class="form-label fw-semibold">Fotos
-                                                                                        actuales</label>
+                                                                                        class="form-label fw-semibold">Foto actual</label>
                                                                                     <div class="d-flex flex-wrap gap-2">
                                                                                         @foreach ($evento->imagenes as $imagen)
                                                                                             <div class="position-relative"
@@ -254,17 +253,15 @@
                                                                             {{-- Subir nuevas imágenes --}}
                                                                             <div class="col-md-12 text-start">
                                                                                 <label
-                                                                                    class="form-label fw-semibold">Añadir
-                                                                                    fotos <span
+                                                                                    class="form-label fw-semibold">Cambiar foto <span
                                                                                         class="text-muted fw-normal">(máx.
-                                                                                        3, hasta 2MB c/u)</span></label>
+                                                                                        1, hasta 2MB)</span></label>
                                                                                 <input type="file" name="imagenes[]"
                                                                                     class="form-control bg-light border-0 image-input"
                                                                                     accept="image/jpeg,image/png,image/gif,image/webp"
-                                                                                    multiple data-max-files="3"
+                                                                                    data-max-files="1"
                                                                                     data-max-size="2097152">
-                                                                                <div class="form-text">Las fotos nuevas se
-                                                                                    añaden sin reemplazar las existentes.
+                                                                                <div class="form-text">Si seleccionas una foto, sustituirá a la que hay ahora.
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-12 text-start etiquetas-wrapper">
@@ -314,7 +311,7 @@
                     <div class="card border-0 shadow-sm rounded-4">
                         <div class="card-body p-4">
                             <h5 class="fw-bold mb-4">Feedback Reciente</h5>
-                            @foreach ($valoraciones->take(5) as $valoracion)
+                            @foreach ($valoraciones as $valoracion)
                                 <div class="mb-4 pb-3 border-bottom border-light last-child-no-border">
                                     <div class="d-flex justify-content-between mb-1">
                                         <span class="fw-bold small">{{ $valoracion->user->nombre ?? 'Anónimo' }}</span>
@@ -341,6 +338,12 @@
                                     </div>
                                 </div>
                             @endforeach
+
+                            @if ($valoraciones->hasPages())
+                                <div class="mt-3 d-flex justify-content-center">
+                                    {{ $valoraciones->links('pagination::bootstrap-5') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -385,11 +388,10 @@
                                 <textarea name="descripcion" class="form-control bg-light border-0" rows="3" placeholder="Cuéntanos más..."></textarea>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label fw-semibold">Imágenes <span class="text-muted fw-normal">(máx. 3,
-                                        hasta 2MB cada una)</span></label>
+                                <label class="form-label fw-semibold">Foto del evento <span class="text-muted fw-normal">(máx. 1, hasta 2MB)</span></label>
                                 <input type="file" name="imagenes[]"
                                     class="form-control bg-light border-0 image-input"
-                                    accept="image/jpeg,image/png,image/gif,image/webp" multiple data-max-files="3"
+                                    accept="image/jpeg,image/png,image/gif,image/webp" data-max-files="1"
                                     data-max-size="2097152">
                                 <div class="form-text">Formatos: JPG, PNG, GIF, WebP</div>
                             </div>
@@ -419,32 +421,5 @@
 
 @push('scripts')
     @vite('resources/js/admin/etiquetas.js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const MAX_FILES = 3;
-            const MAX_SIZE = 2 * 1024 * 1024; // 2MB
-
-            document.querySelectorAll('.image-input').forEach(function(input) {
-                input.addEventListener('change', function() {
-                    const files = this.files;
-                    let errors = [];
-
-                    if (files.length > MAX_FILES) {
-                        errors.push('Solo puedes subir un máximo de ' + MAX_FILES + ' imágenes.');
-                    }
-
-                    for (let i = 0; i < files.length; i++) {
-                        if (files[i].size > MAX_SIZE) {
-                            errors.push('"' + files[i].name + '" supera los 2MB permitidos.');
-                        }
-                    }
-
-                    if (errors.length > 0) {
-                        alert(errors.join('\n'));
-                        this.value = '';
-                    }
-                });
-            });
-        });
-    </script>
+    @vite('resources/js/admin/eventos.js')
 @endpush

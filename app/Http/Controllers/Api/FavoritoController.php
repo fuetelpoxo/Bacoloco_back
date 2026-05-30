@@ -107,6 +107,12 @@ class FavoritoController extends Controller
                 ], 404);
             }
 
+            if ($favorito->user_id !== Auth::id()) {
+                return response()->json([
+                    'message' => 'Acción no autorizada.',
+                ], 403);
+            }
+
             $favorito->delete();
 
             return response()->json([

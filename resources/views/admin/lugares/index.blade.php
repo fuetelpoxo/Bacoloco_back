@@ -70,8 +70,8 @@
                                 <td>{{ $lugar->direccion }}</td>
                                 <td>{{ $lugar->activo ? 'SI' : 'NO' }}</td>
                                 <td>
-                                    @if ($lugar->eventos->count())
-                                        {{ $lugar->eventos->count() }}
+                                    @if ($lugar->eventos_count)
+                                        {{ $lugar->eventos_count }}
                                     @else
                                         <span class="text-muted">Sin eventos</span>
                                     @endif

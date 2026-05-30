@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('lugar_id')->constrained('lugares')->cascadeOnDelete();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+
+            $table->unique(['user_id', 'lugar_id']);
         });
     }
 

@@ -57,7 +57,7 @@
                             <th>Puntuación</th>
                             <th>Comentario</th>
                             <th>Reportado</th>
-                            <th>Fecha de creación</th>
+                            <th>Fecha Creación</th>
                             <th class="text-end">Acciones</th>
                         </tr>
                     </thead>
@@ -88,9 +88,11 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-center mt-4">
-                {{ $valoraciones->links() }}
-            </div>
+            @if ($valoraciones->hasPages())
+                <div class="mt-3 d-flex justify-content-end">
+                    {{ $valoraciones->withQueryString()->links('pagination::bootstrap-5') }}
+                </div>
+            @endif
         </div>
     </div>
 </div>

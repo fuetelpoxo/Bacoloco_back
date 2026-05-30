@@ -29,7 +29,7 @@ class UserController extends Controller
                 ], 403);
             }
 
-            $user = User::find($id);
+            $user = Auth::user();
 
             if (!$user) {
                 return response()->json([

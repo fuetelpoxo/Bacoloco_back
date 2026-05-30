@@ -9,21 +9,24 @@ use Illuminate\Http\Request;
 
 class ValoracionController extends Controller
 {
+    /**
+     * Muestra el listado de valoraciones con filtros opcionales.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $filtros = $this->aplicarFiltros($request);
 
-        // Cargamos todas las valoraciones con su usuario y lugar, aplicando los filtros
         $valoraciones = Valoracion::with(['user', 'lugar'])
             ->where($filtros)
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
 
-        // Obtenemos los lugares para el select del filtro
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
 
-        // Obtenemos los usuarios que tienen valoraciones para el select del filtro
         $usuarios = User::has('valoraciones')
             ->orderBy('nombre')
             ->pluck('nombre', 'id');
@@ -31,6 +34,11 @@ class ValoracionController extends Controller
         return view('admin.valoraciones.index', compact('valoraciones', 'lugares', 'usuarios'));
     }
 
+    /**
+     * Muestra el formulario para crear una nueva valoración.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
@@ -38,6 +46,12 @@ class ValoracionController extends Controller
         return view('admin.valoraciones.create', compact('lugares', 'usuarios'));
     }
 
+    /**
+     * Guarda una nueva valoración en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -47,11 +61,19 @@ class ValoracionController extends Controller
             'comentario' => 'nullable|string|max:1000',
         ]);
 
+        $data['user_id'] = $data['user_id'];
+
         Valoracion::create($data);
 
         return redirect()->route('valoraciones.index')->with('success', 'Valoración creada correctamente.');
     }
 
+    /**
+     * Muestra el formulario para editar una valoración existente.
+     *
+     * @param \App\Models\Valoracion $valoracion
+     * @return \Illuminate\View\View
+     */
     public function edit(Valoracion $valoracion)
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
@@ -59,6 +81,13 @@ class ValoracionController extends Controller
         return view('admin.valoraciones.edit', compact('valoracion', 'lugares', 'usuarios'));
     }
 
+    /**
+     * Actualiza una valoración existente en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Valoracion $valoracion
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Valoracion $valoracion)
     {
         $data = $request->validate([
@@ -74,6 +103,12 @@ class ValoracionController extends Controller
         return redirect()->route('valoraciones.index')->with('success', 'Valoración actualizada correctamente.');
     }
 
+    /**
+     * Elimina una valoración de la base de datos.
+     *
+     * @param \App\Models\Valoracion $valoracion
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Valoracion $valoracion)
     {
         $valoracion->delete();
@@ -81,26 +116,28 @@ class ValoracionController extends Controller
         return redirect()->route('valoraciones.index')->with('success', 'Valoración eliminada correctamente.');
     }
 
+    /**
+     * Aplica los filtros de búsqueda a la consulta de valoraciones.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     private function aplicarFiltros(Request $request)
     {
         $filtros = [];
 
-        // Filtro por ID de usuario (viene del select)
         if ($request->filled('user_id')) {
             $filtros[] = ['user_id', '=', $request->user_id];
         }
 
-        // Filtro por puntuación (número exacto)
         if ($request->filled('puntuacion')) {
             $filtros[] = ['puntuacion', '=', $request->puntuacion];
         }
 
-        // Filtro por ID de lugar (viene del select)
         if ($request->filled('lugar_id')) {
             $filtros[] = ['lugar_id', '=', $request->lugar_id];
         }
 
-        // Filtro por reportado
         if ($request->filled('reportado')) {
             $filtros[] = ['reportado', '=', $request->reportado];
         }

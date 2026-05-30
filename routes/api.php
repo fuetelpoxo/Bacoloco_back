@@ -34,6 +34,7 @@ Route::get('/lugares/{id}/valoraciones', [ValoracionController::class, 'porLugar
 
 //RUTAS API EVENTOS
 Route::prefix('eventos')->controller(EventoController::class)->group(function () {
+    Route::get('/proximas-verbenas', 'proximasVerbenas');
     Route::get('/{id}', 'show');
 });
 

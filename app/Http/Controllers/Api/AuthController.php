@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    /**
+     * Registra un nuevo usuario en la aplicación.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -53,6 +59,12 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Inicia sesión de un usuario existente.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -81,6 +93,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Cierra la sesión del usuario autenticado.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
         $isJson = $request->expectsJson();

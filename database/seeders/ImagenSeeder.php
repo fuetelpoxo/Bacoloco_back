@@ -9,6 +9,10 @@ class ImagenSeeder extends Seeder
 {
     public function run()
     {
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+        DB::table('imagenes')->truncate();
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+
         DB::table('imagenes')->insert([
             [
                 'id' => 1,

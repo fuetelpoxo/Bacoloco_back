@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('comentario')->nullable();
             $table->boolean('reportado')->default(false);
             $table->timestamps();
+
+            $table->unique(['user_id', 'lugar_id']);
         });
     }
 

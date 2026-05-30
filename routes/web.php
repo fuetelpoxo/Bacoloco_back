@@ -39,8 +39,6 @@ Route::middleware(['auth', 'role:organizador'])->prefix('organizador')->group(fu
         ->only(['create', 'store', 'edit', 'update', 'destroy'])
         ->parameters(['eventos' => 'evento'])
         ->names('organizador.eventos');
-    Route::resource('lugares', LugarController::class)
-        ->parameters(['lugares' => 'lugar']);
 
     Route::delete('/imagenes/{imagen}', [ImagenController::class, 'destroy'])->name('imagenes.destroy');
 });

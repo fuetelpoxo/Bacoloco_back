@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    /**
+     * Muestra el listado de usuarios con filtros opcionales.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $filtros = $this->aplicarFiltros($request);
@@ -21,11 +27,23 @@ class UserController extends Controller
         return view('admin.usuarios.index', compact('usuarios'));
     }
 
+    /**
+     * Muestra el formulario para crear un nuevo usuario.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.usuarios.create');
     }
 
+    /**
+     * Guarda un nuevo usuario en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Services\ImageService $imageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, ImageService $imageService)
     {
         $data = $request->validate([
@@ -36,10 +54,8 @@ class UserController extends Controller
             'avatar' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
 
-        // Hash la contraseña
         $data['password'] = Hash::make($data['password']);
 
-        // Procesar logo/avatar si existe
         if ($request->hasFile('avatar')) {
             $ruta = $imageService->optimizarYGuardar($request->file('avatar'), 'usuarios/logos', 400);
             $data['avatar'] = $ruta;
@@ -50,11 +66,25 @@ class UserController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
     }
 
+    /**
+     * Muestra el formulario para editar un usuario existente.
+     *
+     * @param \App\Models\User $usuario
+     * @return \Illuminate\View\View
+     */
     public function edit(User $usuario)
     {
         return view('admin.usuarios.edit', compact('usuario'));
     }
 
+    /**
+     * Actualiza un usuario existente en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $usuario
+     * @param \App\Services\ImageService $imageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, User $usuario, ImageService $imageService)
     {
         $data = $request->validate([
@@ -65,16 +95,13 @@ class UserController extends Controller
             'avatar' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
         ]);
 
-        // Si la contraseña está vacía, no incluirla en los datos a actualizar
         if (empty($data['password'])) {
             unset($data['password']);
         } else {
             $data['password'] = Hash::make($data['password']);
         }
 
-        // Procesar nuevo avatar si existe
         if ($request->hasFile('avatar')) {
-            // Eliminar avatar anterior si existe
             if ($usuario->avatar) {
                 Storage::disk('public')->delete($usuario->avatar);
             }
@@ -88,9 +115,14 @@ class UserController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
+    /**
+     * Elimina un usuario de la base de datos.
+     *
+     * @param \App\Models\User $usuario
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(User $usuario)
     {
-        // Eliminar avatar si existe
         if ($usuario->avatar) {
             Storage::disk('public')->delete($usuario->avatar);
         }
@@ -100,6 +132,12 @@ class UserController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
     }
 
+    /**
+     * Aplica los filtros de búsqueda a la consulta de usuarios.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     private function aplicarFiltros(Request $request)
     {
         $filtros = [];

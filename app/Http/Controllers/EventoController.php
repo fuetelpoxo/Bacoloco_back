@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class EventoController extends Controller
 {
+    /**
+     * Muestra el listado de eventos con filtros opcionales.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $eventos = Evento::with(['lugar', 'user'])
@@ -28,6 +34,11 @@ class EventoController extends Controller
         return view('admin.eventos.index', compact('eventos', 'lugares'));
     }
 
+    /**
+     * Muestra el formulario para crear un nuevo evento.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
@@ -37,10 +48,17 @@ class EventoController extends Controller
         return view('admin.eventos.create', compact('lugares', 'users', 'etiquetas'));
     }
 
+    /**
+     * Guarda un nuevo evento en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Services\ImageService $imageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, ImageService $imageService)
     {
-        // 1. Condicionar la regla del user_id (igual que en tu update)
         $userIdRule = Auth::user()->rol === 'organizador' ? 'nullable' : 'required|integer|exists:users,id';
+        $maxImagenes = Auth::user()->rol === 'organizador' ? 1 : 3;
 
         $data = $request->validate([
             'lugar_id' => 'nullable|integer|exists:lugares,id',
@@ -51,14 +69,13 @@ class EventoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'precio' => 'nullable|numeric|min:0',
             'activo' => 'sometimes|boolean',
-            'imagenes' => 'nullable|array|max:3',
+            'imagenes' => 'nullable|array|max:' . $maxImagenes,
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
             'etiquetas' => 'nullable|array|max:4',
             'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
         return DB::transaction(function () use ($request, $data, $imageService) {
-            // Si es organizador, validar que el lugar le pertenece y auto-asignar user_id
             if (Auth::user()->rol === 'organizador') {
                 if ($data['lugar_id'] ?? null) {
                     $lugar = Lugar::findOrFail($data['lugar_id']);
@@ -73,7 +90,6 @@ class EventoController extends Controller
 
             if ($request->hasFile('imagenes')) {
                 foreach ($request->file('imagenes') as $archivo) {
-                    // Guardar la imagen en storage/app/public/eventos
                     $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
 
                     $imagen = Imagen::create([
@@ -81,17 +97,14 @@ class EventoController extends Controller
                         'tipo' => 'evento',
                     ]);
 
-                    // Relacionar la imagen con el evento
                     $evento->imagenes()->attach($imagen->id);
                 }
             }
 
-            // Asociar etiquetas
             if ($request->has('etiquetas')) {
                 $evento->etiquetas()->attach($request->input('etiquetas'));
             }
 
-            // 2. Redireccionar directamente dónde queremos que acabe, sin confusiones
             if (Auth::user()->rol === 'organizador') {
                 return redirect()->route('organizador.dashboard')->with('success', 'Evento creado correctamente.');
             }
@@ -100,6 +113,12 @@ class EventoController extends Controller
         });
     }
 
+    /**
+     * Muestra el formulario para editar un evento existente.
+     *
+     * @param \App\Models\Evento $evento
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Evento $evento)
     {
         if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
@@ -108,7 +127,6 @@ class EventoController extends Controller
 
         $evento->load(['imagenes', 'etiquetas']);
 
-        // Condicionar los lugares según el rol
         if (Auth::user()->rol === 'organizador') {
             $lugares = Lugar::where('user_id', Auth::id())->orderBy('nombre')->pluck('nombre', 'id');
         } else {
@@ -121,15 +139,22 @@ class EventoController extends Controller
         return view('admin.eventos.edit', compact('evento', 'lugares', 'users', 'etiquetas'));
     }
 
+    /**
+     * Actualiza un evento existente en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Evento $evento
+     * @param \App\Services\ImageService $imageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Evento $evento, ImageService $imageService)
     {
-        // Verificar que el organizador solo puede editar sus propios eventos
         if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
             return redirect()->route('organizador.dashboard')->with('error', 'No tienes permiso para editar este evento.');
         }
 
-        // Validación condicional: user_id es requerido solo si no es organizador
         $userIdRule = Auth::user()->rol === 'organizador' ? 'nullable' : 'required|integer|exists:users,id';
+        $maxImagenesRule = Auth::user()->rol === 'organizador' ? 'nullable|array|max:1' : 'nullable|array';
 
         $data = $request->validate([
             'lugar_id' => 'nullable|integer|exists:lugares,id',
@@ -140,14 +165,13 @@ class EventoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'precio' => 'nullable|numeric|min:0',
             'activo' => 'sometimes|boolean',
-            'imagenes' => 'nullable|array',
+            'imagenes' => $maxImagenesRule,
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
             'etiquetas' => 'nullable|array|max:4',
             'etiquetas.*' => 'integer|exists:etiquetas,id',
         ]);
 
         return DB::transaction(function () use ($request, $data, $evento, $imageService) {
-            // Si es organizador, validar que el lugar le pertenece y mantener user_id
             if (Auth::user()->rol === 'organizador') {
                 if ($data['lugar_id'] ?? null) {
                     $lugar = Lugar::findOrFail($data['lugar_id']);
@@ -161,6 +185,16 @@ class EventoController extends Controller
             $evento->update($data);
 
             if ($request->hasFile('imagenes')) {
+                if (Auth::user()->rol === 'organizador') {
+                    foreach ($evento->imagenes as $prevImagen) {
+                        if (Storage::disk('public')->exists($prevImagen->ruta)) {
+                            Storage::disk('public')->delete($prevImagen->ruta);
+                        }
+                        $prevImagen->delete();
+                    }
+                    $evento->imagenes()->detach();
+                }
+
                 foreach ($request->file('imagenes') as $archivo) {
                     $ruta = $imageService->optimizarYGuardar($archivo, 'eventos');
 
@@ -173,7 +207,6 @@ class EventoController extends Controller
                 }
             }
 
-            // Sincronizar etiquetas
             $evento->etiquetas()->sync($request->input('etiquetas', []));
 
             if (Auth::user()->rol === 'organizador') {
@@ -183,9 +216,14 @@ class EventoController extends Controller
         });
     }
 
+    /**
+     * Elimina un evento de la base de datos.
+     *
+     * @param \App\Models\Evento $evento
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Evento $evento)
     {
-        // Verificar que el organizador solo puede eliminar sus propios eventos
         if (Auth::user()->rol === 'organizador' && $evento->user_id !== Auth::id()) {
             abort(403, 'No tienes permiso para eliminar este evento.');
         }
@@ -198,6 +236,12 @@ class EventoController extends Controller
         return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
 
+    /**
+     * Aplica los filtros de búsqueda a la consulta de eventos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     private function aplicarFiltros(Request $request)
     {
         $filtros = [];

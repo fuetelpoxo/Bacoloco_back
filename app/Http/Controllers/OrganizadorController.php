@@ -10,17 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class OrganizadorController extends Controller
 {
+    /**
+     * Muestra el panel de control del organizador.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function dashboard(Request $request)
     {
         $user = Auth::user();
 
-        // Obtener todos los lugares del usuario
         $lugares = Lugar::where('user_id', $user->id)
             ->withCount('valoraciones')
             ->orderBy('nombre')
             ->get();
 
-        // Si no tiene lugares, mostrar mensaje
         if ($lugares->isEmpty()) {
             return view('organizador.dashboard', [
                 'lugares' => $lugares,
@@ -30,17 +34,14 @@ class OrganizadorController extends Controller
             ]);
         }
 
-        // Determinar lugar seleccionado
         $lugarId = $request->input('lugar_id', $lugares->first()->id);
         $lugarSeleccionado = $lugares->find($lugarId);
 
-        // Si el lugar no existe o no pertenece al usuario, redirigir
         if (!$lugarSeleccionado) {
             $lugarSeleccionado = $lugares->first();
             $lugarId = $lugarSeleccionado->id;
         }
 
-        // Obtener eventos del lugar seleccionado con filtro de búsqueda
         $search = $request->input('search');
         $eventos = $lugarSeleccionado->eventos()
             ->with(['imagenes', 'etiquetas'])
@@ -50,23 +51,38 @@ class OrganizadorController extends Controller
             ->orderByDesc('fecha_inicio')
             ->get();
 
-        // Obtener valoraciones del lugar seleccionado
         $valoraciones = $lugarSeleccionado->valoraciones()
             ->with('user')
             ->orderByDesc('created_at')
             ->paginate(10)
             ->appends($request->query());
 
+        $promedioValoraciones = $lugarSeleccionado->valoraciones()->avg('puntuacion') ?? 0;
+        $totalValoraciones = $lugarSeleccionado->valoraciones_count;
+
         $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
 
-        return view('organizador.dashboard', compact('lugares', 'lugarSeleccionado', 'eventos', 'valoraciones', 'etiquetas'));
+        return view('organizador.dashboard', compact(
+            'lugares',
+            'lugarSeleccionado',
+            'eventos',
+            'valoraciones',
+            'etiquetas',
+            'promedioValoraciones',
+            'totalValoraciones'
+        ));
     }
 
+    /**
+     * Alterna el estado de reporte de una valoración.
+     *
+     * @param int $valoracionId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function reportarValoracion($valoracionId)
     {
         $valoracion = Valoracion::findOrFail($valoracionId);
 
-        // Verificar que el lugar pertenece al usuario
         if ($valoracion->lugar->user_id !== Auth::id()) {
             abort(403);
         }

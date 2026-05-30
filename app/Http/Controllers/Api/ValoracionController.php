@@ -63,7 +63,6 @@ class ValoracionController extends Controller
             ], 422);
         }
 
-        // Verificar si el usuario ya ha valorado este lugar
         $existe = Valoracion::where('user_id', Auth::id())
             ->where('lugar_id', $request->lugar_id)
             ->first();
@@ -123,6 +122,12 @@ class ValoracionController extends Controller
                 ], 404);
             }
 
+            if ($valoracion->user_id !== Auth::id()) {
+                return response()->json([
+                    'message' => 'Acción no autorizada.',
+                ], 403);
+            }
+
             $valoracion->update($request->only(['puntuacion', 'comentario']));
 
             return response()->json([
@@ -151,6 +156,12 @@ class ValoracionController extends Controller
                 return response()->json([
                     'message' => 'Valoración no encontrada.',
                 ], 404);
+            }
+
+            if ($valoracion->user_id !== Auth::id()) {
+                return response()->json([
+                    'message' => 'Acción no autorizada.',
+                ], 403);
             }
 
             $valoracion->delete();

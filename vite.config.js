@@ -8,7 +8,8 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/admin/etiquetas.js'
+                'resources/js/admin/etiquetas.js',
+                'resources/js/admin/eventos.js'
             ],
             refresh: true,
         }),

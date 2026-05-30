@@ -28,9 +28,15 @@ class LugarController extends Controller
                 ->withAvg('valoraciones', 'puntuacion');
             $this->aplicarFiltros($query, $request);
 
+            if ($request->has('limit')) {
+                $limit = (int) $request->limit;
+                $offset = (int) $request->input('offset', 0);
+                $query->skip($offset)->take($limit);
+            }
+
             $lugares = $query->get();
 
-            if ($lugares->isEmpty()) {
+            if ($lugares->isEmpty() && !$request->has('offset')) {
                 return response()->json([
                     'message' => 'No se encontraron lugares.',
                 ], 404);
@@ -93,7 +99,7 @@ class LugarController extends Controller
     {
         try {
             $query = Lugar::withAvg('valoraciones', 'puntuacion')
-                ->with('tipo:id,nombre', 'imagenes')
+                ->with('tipo:id,nombre')
                 ->has('valoraciones')
                 ->orderByDesc('valoraciones_avg_puntuacion');
 
@@ -104,10 +110,9 @@ class LugarController extends Controller
             $limit = $request->has('limit') ? (int) $request->limit : 5;
             $lugares = $query->take($limit)->get();
 
-            // Fallback: si no hay suficientes con valoración, traer los más recientes
             if ($lugares->isEmpty()) {
                 $queryFallback = Lugar::withAvg('valoraciones', 'puntuacion')
-                    ->with('tipo:id,nombre', 'imagenes')
+                    ->with('tipo:id,nombre')
                     ->orderByDesc('created_at');
                     
                 if ($request->has('tipo_id')) {
@@ -140,12 +145,17 @@ class LugarController extends Controller
     public function show($id)
     {
         try {
-            $lugar = Lugar::with(
+            $lugar = Lugar::with([
                 'etiquetas',
-                'eventos',
-                'valoraciones',
+                'eventos' => function ($query) {
+                    $query->where('activo', true)
+                        ->where('fecha_inicio', '>=', now())
+                        ->orderBy('fecha_inicio', 'asc')
+                        ->take(5);
+                },
                 'imagenes'
-            )->find($id);
+            ])->find($id);
+
             if (!$lugar) {
                 return response()->json([
                     'message' => 'Lugar no encontrado.',
