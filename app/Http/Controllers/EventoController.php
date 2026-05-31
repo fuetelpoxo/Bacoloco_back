@@ -23,9 +23,11 @@ class EventoController extends Controller
      */
     public function index(Request $request)
     {
-        $eventos = Evento::with(['lugar', 'user'])
-            ->where($this->aplicarFiltros($request))
-            ->orderByDesc('fecha_inicio')
+        $query = Evento::with(['lugar', 'user']);
+
+        $this->aplicarFiltros($query, $request);
+
+        $eventos = $query->orderByDesc('fecha_inicio')
             ->paginate(10)
             ->withQueryString();
 
@@ -239,29 +241,24 @@ class EventoController extends Controller
     /**
      * Aplica los filtros de búsqueda a la consulta de eventos.
      *
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function aplicarFiltros(Request $request)
+    private function aplicarFiltros($query, Request $request)
     {
-        $filtros = [];
-
-        if ($request->nombre_evento) {
-            $filtros[] = ['nombre', 'like', '%' . $request->nombre_evento . '%'];
-        }
-
-        if ($request->precio_desde) {
-            $filtros[] = ['precio', '>=', $request->precio_desde];
-        }
-
-        if ($request->precio_hasta) {
-            $filtros[] = ['precio', '<=', $request->precio_hasta];
-        }
-
-        if ($request->activo !== null && $request->activo !== '') {
-            $filtros[] = ['activo', '=', $request->activo];
-        }
-
-        return $filtros;
+        return $query
+            ->when($request->nombre_evento, function ($query, $nombreEvento) {
+                $query->where('nombre', 'like', '%' . $nombreEvento . '%');
+            })
+            ->when($request->precio_desde, function ($query, $precioDesde) {
+                $query->where('precio', '>=', $precioDesde);
+            })
+            ->when($request->precio_hasta, function ($query, $precioHasta) {
+                $query->where('precio', '<=', $precioHasta);
+            })
+            ->when($request->activo !== null && $request->activo !== '', function ($query) use ($request) {
+                $query->where('activo', '=', $request->activo);
+            });
     }
 }

@@ -36,11 +36,6 @@ class LugarController extends Controller
 
             $lugares = $query->get();
 
-            if ($lugares->isEmpty() && !$request->has('offset')) {
-                return response()->json([
-                    'message' => 'No se encontraron lugares.',
-                ], 404);
-            }
             return response()->json($lugares);
         } catch (Exception $e) {
             return response()->json([
@@ -75,11 +70,6 @@ class LugarController extends Controller
                     'longitud'
                 )
                 ->get();
-            if ($lugares->isEmpty()) {
-                return response()->json([
-                    'message' => 'No se encontraron datos de lugares para el mapa.',
-                ], 404);
-            }
 
             return response()->json($lugares);
         } catch (Exception $e) {
@@ -179,25 +169,23 @@ class LugarController extends Controller
      */
     private function aplicarFiltros($query, Request $request)
     {
-        if ($request->has('tipo_id')) {
-            $query->where('tipo_id', $request->tipo_id);
-        } elseif ($request->has('tipo')) {
-            $query->where('tipo_id', $request->tipo);
-        }
-
-        if ($request->municipio) {
-            $query->where('municipio', $request->municipio);
-        }
-
-        if ($request->buscar) {
-            $query->where('nombre', 'like', '%' . $request->buscar . '%');
-        }
-
-        if ($request->order) {
-            $query->orderBy($request->order, 'desc');
-        }
-
-        return $query;
+        return $query
+            ->when($request->has('tipo_id') || $request->has('tipo'), function ($query) use ($request) {
+                $tipoId = $request->input('tipo_id', $request->input('tipo'));
+                $query->where('tipo_id', $tipoId);
+            })
+            ->when($request->municipio, function ($query, $municipio) {
+                $query->where('municipio', $municipio);
+            })
+            ->when($request->buscar, function ($query, $buscar) {
+                $query->where('nombre', 'like', '%' . $buscar . '%');
+            })
+            ->when($request->order, function ($query, $order) {
+                $allowedColumns = ['nombre', 'municipio', 'created_at', 'id'];
+                if (in_array($order, $allowedColumns, true)) {
+                    $query->orderBy($order, 'desc');
+                }
+            });
     }
 
     /**

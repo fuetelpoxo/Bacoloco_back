@@ -21,12 +21,11 @@ class LugarController extends Controller
      */
     public function index(Request $request)
     {
-        $filtros = $this->aplicarFiltros($request);
+        $query = Lugar::with('tipo')->withCount('eventos');
 
-        $lugares = Lugar::with('tipo')
-            ->withCount('eventos')
-            ->where($filtros)
-            ->paginate(10)
+        $this->aplicarFiltros($query, $request);
+
+        $lugares = $query->paginate(10)
             ->withQueryString();
 
         $tipos = Tipo::pluck('nombre', 'id');
@@ -61,8 +60,8 @@ class LugarController extends Controller
             'user_id' => 'required|integer|exists:users,id',
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'latitud' => 'required|numeric|decimal:7',
-            'longitud' => 'required|numeric|decimal:7',
+            'latitud' => 'required|numeric|between:-90,90',
+            'longitud' => 'required|numeric|between:-180,180',
             'municipio' => 'required|string|max:255',
             'direccion' => 'nullable|string|max:255',
             'activo' => 'sometimes|boolean',
@@ -127,8 +126,8 @@ class LugarController extends Controller
             'user_id' => 'required|integer|exists:users,id',
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'latitud' => 'required|numeric|decimal:7',
-            'longitud' => 'required|numeric|decimal:7',
+            'latitud' => 'required|numeric|between:-90,90',
+            'longitud' => 'required|numeric|between:-180,180',
             'municipio' => 'required|string|max:255',
             'direccion' => 'nullable|string|max:255',
             'activo' => 'sometimes|boolean',
@@ -176,30 +175,25 @@ class LugarController extends Controller
     /**
      * Genera la lista de filtros aplicados.
      *
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function aplicarFiltros(Request $request)
+    private function aplicarFiltros($query, Request $request)
     {
-        $filtros = [];
-
-        if ($request->activo !== null && $request->activo !== '') {
-            $filtros[] = ['activo', '=', $request->activo];
-        }
-
-        if ($request->tipo_id) {
-            $filtros[] = ['tipo_id', '=', $request->tipo_id];
-        }
-
-        if ($request->municipio) {
-            $filtros[] = ['municipio', '=', $request->municipio];
-        }
-
-        if ($request->nombre) {
-            $filtros[] = ['nombre', 'like', '%' . $request->nombre . '%'];
-        }
-
-        return $filtros;
+        return $query
+            ->when($request->activo !== null && $request->activo !== '', function ($query) use ($request) {
+                $query->where('activo', '=', $request->activo);
+            })
+            ->when($request->tipo_id, function ($query, $tipoId) {
+                $query->where('tipo_id', '=', $tipoId);
+            })
+            ->when($request->municipio, function ($query, $municipio) {
+                $query->where('municipio', '=', $municipio);
+            })
+            ->when($request->nombre, function ($query, $nombre) {
+                $query->where('nombre', 'like', '%' . $nombre . '%');
+            });
     }
 }
 

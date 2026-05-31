@@ -23,12 +23,6 @@ class ValoracionController extends Controller
                 ->where('user_id', Auth::id())
                 ->get();
 
-            if ($valoraciones->isEmpty()) {
-                return response()->json([
-                    'message' => 'No se encontraron valoraciones para este usuario.',
-                ], 404);
-            }
-
             return response()->json($valoraciones);
         } catch (Exception $e) {
             return response()->json([

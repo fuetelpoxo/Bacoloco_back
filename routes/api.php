@@ -56,7 +56,6 @@ Route::middleware('auth:sanctum')->prefix('valoraciones')->controller(Valoracion
 
 //RUTAS API USUARIO
 Route::middleware('auth:sanctum')->prefix('usuario')->controller(UserController::class)->group(function () {
-    Route::get('/{id}', 'show');
     Route::put('/', 'update');
     Route::put('/password', 'changePassword');
     Route::delete('/', 'destroy');

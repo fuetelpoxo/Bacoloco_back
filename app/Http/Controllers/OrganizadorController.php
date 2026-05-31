@@ -22,6 +22,7 @@ class OrganizadorController extends Controller
 
         $lugares = Lugar::where('user_id', $user->id)
             ->withCount('valoraciones')
+            ->withAvg('valoraciones', 'puntuacion')
             ->orderBy('nombre')
             ->get();
 
@@ -57,7 +58,7 @@ class OrganizadorController extends Controller
             ->paginate(10)
             ->appends($request->query());
 
-        $promedioValoraciones = $lugarSeleccionado->valoraciones()->avg('puntuacion') ?? 0;
+        $promedioValoraciones = $lugarSeleccionado->valoraciones_avg_puntuacion ?? 0;
         $totalValoraciones = $lugarSeleccionado->valoraciones_count;
 
         $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');

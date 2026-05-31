@@ -12,38 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Muestra los datos de un usuario por ID.
-     *
-     * Solo permite ver el propio perfil del usuario autenticado.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-        try {
-            if ((int) Auth::id() !== (int) $id) {
-                return response()->json([
-                    'message' => 'No autorizado para ver este usuario.',
-                ], 403);
-            }
 
-            $user = Auth::user();
-
-            if (!$user) {
-                return response()->json([
-                    'message' => 'Usuario no encontrado.',
-                ], 404);
-            }
-
-            return response()->json($user);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'No se pudo obtener la información del usuario.',
-            ], 500);
-        }
-    }
 
     /**
      * Actualiza nombre y email del usuario autenticado.
@@ -152,8 +121,12 @@ class UserController extends Controller
                 ], 401);
             }
 
-            $user->tokens()->delete();
             $user->delete();
+
+            // Cerrar la sesión de forma efectiva para el usuario que se borra a sí mismo
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             return response()->json([
                 'message' => 'Cuenta eliminada correctamente.',

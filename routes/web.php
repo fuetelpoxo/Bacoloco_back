@@ -21,14 +21,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('eventos', EventoController::class)
-        ->parameters(['eventos' => 'evento']);
+        ->parameters(['eventos' => 'evento'])
+        ->except(['show']);
     Route::resource('lugares', LugarController::class)
-        ->parameters(['lugares' => 'lugar']);
+        ->parameters(['lugares' => 'lugar'])
+        ->except(['show']);
     Route::resource('usuarios', UserController::class)
-        ->parameters(['usuarios' => 'usuario']);
+        ->parameters(['usuarios' => 'usuario'])
+        ->except(['show']);
     Route::resource('valoraciones', ValoracionController::class)
-        ->parameters(['valoraciones' => 'valoracion']);
-    Route::delete('/imagenes/{imagen}', [ImagenController::class, 'destroy'])->name('imagenes.destroy');
+        ->parameters(['valoraciones' => 'valoracion'])
+        ->except(['show']);
 });
 
 Route::middleware(['auth', 'role:organizador'])->prefix('organizador')->group(function () {
@@ -39,6 +42,6 @@ Route::middleware(['auth', 'role:organizador'])->prefix('organizador')->group(fu
         ->only(['create', 'store', 'edit', 'update', 'destroy'])
         ->parameters(['eventos' => 'evento'])
         ->names('organizador.eventos');
-
-    Route::delete('/imagenes/{imagen}', [ImagenController::class, 'destroy'])->name('imagenes.destroy');
 });
+
+Route::middleware(['auth'])->delete('/imagenes/{imagen}', [ImagenController::class, 'destroy'])->name('imagenes.destroy');

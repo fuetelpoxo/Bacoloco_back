@@ -17,11 +17,11 @@ class ValoracionController extends Controller
      */
     public function index(Request $request)
     {
-        $filtros = $this->aplicarFiltros($request);
+        $query = Valoracion::with(['user', 'lugar']);
 
-        $valoraciones = Valoracion::with(['user', 'lugar'])
-            ->where($filtros)
-            ->orderByDesc('created_at')
+        $this->aplicarFiltros($query, $request);
+
+        $valoraciones = $query->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
 
@@ -119,29 +119,24 @@ class ValoracionController extends Controller
     /**
      * Aplica los filtros de búsqueda a la consulta de valoraciones.
      *
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function aplicarFiltros(Request $request)
+    private function aplicarFiltros($query, Request $request)
     {
-        $filtros = [];
-
-        if ($request->filled('user_id')) {
-            $filtros[] = ['user_id', '=', $request->user_id];
-        }
-
-        if ($request->filled('puntuacion')) {
-            $filtros[] = ['puntuacion', '=', $request->puntuacion];
-        }
-
-        if ($request->filled('lugar_id')) {
-            $filtros[] = ['lugar_id', '=', $request->lugar_id];
-        }
-
-        if ($request->filled('reportado')) {
-            $filtros[] = ['reportado', '=', $request->reportado];
-        }
-
-        return $filtros;
+        return $query
+            ->when($request->filled('user_id'), function ($query) use ($request) {
+                $query->where('user_id', '=', $request->user_id);
+            })
+            ->when($request->filled('puntuacion'), function ($query) use ($request) {
+                $query->where('puntuacion', '=', $request->puntuacion);
+            })
+            ->when($request->filled('lugar_id'), function ($query) use ($request) {
+                $query->where('lugar_id', '=', $request->lugar_id);
+            })
+            ->when($request->filled('reportado'), function ($query) use ($request) {
+                $query->where('reportado', '=', $request->reportado);
+            });
     }
 }

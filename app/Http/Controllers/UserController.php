@@ -18,10 +18,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $filtros = $this->aplicarFiltros($request);
+        $query = User::query();
 
-        $usuarios = User::where($filtros)
-            ->paginate(10)
+        $this->aplicarFiltros($query, $request);
+
+        $usuarios = $query->paginate(10)
             ->withQueryString();
 
         return view('admin.usuarios.index', compact('usuarios'));
@@ -135,25 +136,21 @@ class UserController extends Controller
     /**
      * Aplica los filtros de búsqueda a la consulta de usuarios.
      *
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function aplicarFiltros(Request $request)
+    private function aplicarFiltros($query, Request $request)
     {
-        $filtros = [];
-
-        if ($request->nombre) {
-            $filtros[] = ['nombre', 'like', '%' . $request->nombre . '%'];
-        }
-
-        if ($request->email) {
-            $filtros[] = ['email', 'like', '%' . $request->email . '%'];
-        }
-
-        if ($request->rol) {
-            $filtros[] = ['rol', '=', $request->rol];
-        }
-
-        return $filtros;
+        return $query
+            ->when($request->nombre, function ($query, $nombre) {
+                $query->where('nombre', 'like', '%' . $nombre . '%');
+            })
+            ->when($request->email, function ($query, $email) {
+                $query->where('email', 'like', '%' . $email . '%');
+            })
+            ->when($request->rol, function ($query, $rol) {
+                $query->where('rol', '=', $rol);
+            });
     }
 }

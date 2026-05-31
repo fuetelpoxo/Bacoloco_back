@@ -76,12 +76,6 @@ class FavoritoController extends Controller
                 ->where('user_id', Auth::id())
                 ->get();
 
-            if ($favoritos->isEmpty()) {
-                return response()->json([
-                    'message' => 'No se encontraron favoritos para este usuario.',
-                ], 404);
-            }
-
             return response()->json($favoritos);
         } catch (Exception $e) {
             return response()->json([
