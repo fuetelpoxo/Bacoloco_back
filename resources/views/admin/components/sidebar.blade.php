@@ -4,7 +4,7 @@
 
     <a href="{{ auth()->user()->rol === 'admin' ? route('admin.dashboard') : route('lugares.index') }}"
         class="text-center mb-3">
-        <img src="{{ asset('imagenes/LogoBlanco.png') }}" alt="Logo" class="img-fluid w-50">
+        <img src="{{ asset('imagenes/logoBlanco.png') }}" alt="Logo" class="img-fluid w-50">
     </a>
     <ul class="nav flex-column">
 
