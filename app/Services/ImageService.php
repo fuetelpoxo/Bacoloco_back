@@ -34,8 +34,8 @@ class ImageService
         // 4. Generar una ruta y nombre único para el archivo
         $nombreArchivo = $carpeta . '/' . Str::uuid() . '.webp';
 
-        // 5. Guardar en el almacenamiento público
-        Storage::disk('public')->put($nombreArchivo, (string) $imagenWebP);
+        // 5. Guardar en el almacenamiento por defecto (local/public en dev, s3/R2 en producción)
+        Storage::disk()->put($nombreArchivo, (string) $imagenWebP);
 
         return $nombreArchivo;
     }

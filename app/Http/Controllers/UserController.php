@@ -104,7 +104,7 @@ class UserController extends Controller
 
         if ($request->hasFile('avatar')) {
             if ($usuario->avatar) {
-                Storage::disk('public')->delete($usuario->avatar);
+                Storage::disk()->delete($usuario->avatar);
             }
 
             $ruta = $imageService->optimizarYGuardar($request->file('avatar'), 'usuarios/logos', 400);
@@ -125,7 +125,7 @@ class UserController extends Controller
     public function destroy(User $usuario)
     {
         if ($usuario->avatar) {
-            Storage::disk('public')->delete($usuario->avatar);
+            Storage::disk()->delete($usuario->avatar);
         }
 
         $usuario->delete();
