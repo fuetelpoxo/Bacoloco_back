@@ -30,8 +30,8 @@ class ImagenController extends Controller
             abort(403, 'Acción no autorizada.');
         }
 
-        if (Storage::disk('public')->exists($imagen->ruta)) {
-            Storage::disk('public')->delete($imagen->ruta);
+        if (Storage::disk()->exists($imagen->ruta)) {
+            Storage::disk()->delete($imagen->ruta);
         }
         $imagen->delete();
 

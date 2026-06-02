@@ -189,8 +189,8 @@ class EventoController extends Controller
             if ($request->hasFile('imagenes')) {
                 if (Auth::user()->rol === 'organizador') {
                     foreach ($evento->imagenes as $prevImagen) {
-                        if (Storage::disk('public')->exists($prevImagen->ruta)) {
-                            Storage::disk('public')->delete($prevImagen->ruta);
+                        if (Storage::disk()->exists($prevImagen->ruta)) {
+                            Storage::disk()->delete($prevImagen->ruta);
                         }
                         $prevImagen->delete();
                     }
