@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Imagen extends Model
 {
@@ -12,6 +13,19 @@ class Imagen extends Model
         'ruta',
         'tipo',
     ];
+
+    protected $appends = ['url'];
+
+    public function getUrlAttribute()
+    {
+        if (empty($this->ruta)) {
+            return '';
+        }
+        if (str_starts_with($this->ruta, 'http://') || str_starts_with($this->ruta, 'https://')) {
+            return $this->ruta;
+        }
+        return Storage::url($this->ruta);
+    }
 
     public function lugar()
     {

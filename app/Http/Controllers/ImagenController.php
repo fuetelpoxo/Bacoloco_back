@@ -38,4 +38,3 @@ class ImagenController extends Controller
         return redirect()->back()->with('success', 'Imagen eliminada correctamente.');
     }
 }
-
