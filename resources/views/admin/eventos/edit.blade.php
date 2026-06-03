@@ -110,7 +110,7 @@
                             @foreach ($evento->imagenes as $imagen)
                                 <div class="col-6 col-md-3">
                                     <div class="card">
-                                        <img src="{{ asset('storage/' . $imagen->ruta) }}" class="card-img-top"
+                                        <img src="{{ $imagen->url }}" class="card-img-top"
                                             alt="Foto del evento">
                                         <div class="card-body text-center p-2">
                                             <form action="{{ route('imagenes.destroy', $imagen) }}" method="POST">

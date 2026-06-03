@@ -242,7 +242,7 @@
                                                                                         @foreach ($evento->imagenes as $imagen)
                                                                                             <div class="position-relative"
                                                                                                 style="width: 100px; height: 100px;">
-                                                                                                <img src="{{ asset('storage/' . $imagen->ruta) }}"
+                                                                                                <img src="{{ $imagen->url }}"
                                                                                                     class="rounded-3 w-100 h-100 object-fit-cover border"
                                                                                                     alt="Foto del evento">
                                                                                             </div>
