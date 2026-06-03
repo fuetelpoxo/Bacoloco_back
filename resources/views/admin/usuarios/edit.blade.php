@@ -63,7 +63,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Avatar actual</label>
                                 <div>
-                                    <img src="{{ asset('storage/' . $usuario->avatar) }}"
+                                    <img src="{{ $usuario->avatar_url }}"
                                         alt="{{ $usuario->nombre }}" style="max-width: 200px; max-height: 200px; border-radius: 4px;">
                                 </div>
                                 <div class="form-text">Las fotos nuevas se añaden reemplazando las existentes.</div>
