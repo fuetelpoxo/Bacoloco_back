@@ -45,9 +45,8 @@ Sigue atentamente cada uno de los siguientes pasos en la terminal de tu sistema 
 ### 1. Clonar el repositorio
 Si aún no has clonado el repositorio del backend, abre tu terminal y ejecuta:
 ```bash
-git clone <URL_DEL_REPOSITORIO_BACKEND>
+git clone https://github.com/fuetelpoxo/Bacoloco_back.git
 ```
-*(Reemplaza `<URL_DEL_REPOSITORIO_BACKEND>` por el enlace HTTPS o SSH correspondiente de GitHub).*
 
 ### 2. Acceder al directorio
 Navega dentro de la carpeta raíz del backend:
