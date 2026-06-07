@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etiqueta;
 use App\Models\Lugar;
 use App\Models\Valoracion;
-use App\Models\Etiqueta;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class OrganizadorController extends Controller
 {
     /**
      * Muestra el panel de control del organizador.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     * @return View|RedirectResponse
      */
     public function dashboard(Request $request)
     {
@@ -38,7 +39,7 @@ class OrganizadorController extends Controller
         $lugarId = $request->input('lugar_id', $lugares->first()->id);
         $lugarSeleccionado = $lugares->find($lugarId);
 
-        if (!$lugarSeleccionado) {
+        if (! $lugarSeleccionado) {
             $lugarSeleccionado = $lugares->first();
             $lugarId = $lugarSeleccionado->id;
         }
@@ -47,7 +48,7 @@ class OrganizadorController extends Controller
         $eventos = $lugarSeleccionado->eventos()
             ->with(['imagenes', 'etiquetas'])
             ->when($search, function ($query, $search) {
-                return $query->where('nombre', 'like', '%' . $search . '%');
+                return $query->where('nombre', 'like', '%'.$search.'%');
             })
             ->orderByDesc('fecha_inicio')
             ->get();
@@ -77,8 +78,8 @@ class OrganizadorController extends Controller
     /**
      * Alterna el estado de reporte de una valoración.
      *
-     * @param int $valoracionId
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  int  $valoracionId
+     * @return RedirectResponse
      */
     public function reportarValoracion($valoracionId)
     {
@@ -88,7 +89,7 @@ class OrganizadorController extends Controller
             abort(403);
         }
 
-        $valoracion->update(['reportado' => !$valoracion->reportado]);
+        $valoracion->update(['reportado' => ! $valoracion->reportado]);
 
         return back()->with('success', 'Estado de reporte actualizado.');
     }

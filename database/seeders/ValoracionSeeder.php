@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ class ValoracionSeeder extends Seeder
         DB::table('valoraciones')->truncate();
         Schema::enableForeignKeyConstraints();
 
-        $faker = \Faker\Factory::create('es_ES');
+        $faker = Factory::create('es_ES');
         $valoraciones = [];
         $id = 1;
 
@@ -51,7 +52,7 @@ class ValoracionSeeder extends Seeder
             'Local muy acogedor y de trato muy familiar.',
             'La música comercial que ponen está súper actualizada.',
             'Volveré mil veces, es nuestro sitio de confianza definitivo.',
-            'Excelente ambiente, música de calidad y el personal muy atento.'
+            'Excelente ambiente, música de calidad y el personal muy atento.',
         ];
 
         $comentariosNeutros = [
@@ -85,7 +86,7 @@ class ValoracionSeeder extends Seeder
             'Música un poco alta para poder hablar tranquilamente.',
             'El servicio es un poco despistado pero el sitio es agradable.',
             'No está mal para ir de vez en cuando a tomar algo rápido.',
-            'Normalito, un local con luces y sombras pero pasable.'
+            'Normalito, un local con luces y sombras pero pasable.',
         ];
 
         $comentariosNegativos = [
@@ -119,7 +120,7 @@ class ValoracionSeeder extends Seeder
             'Poca variedad de bebidas y muchas de la carta no tenían.',
             'Muy mala ventilación, salimos oliendo a humo y sudor.',
             'Una decepción absoluta tras haber leído buenas críticas.',
-            'Pésima experiencia, servicio desorganizado y mal ambiente.'
+            'Pésima experiencia, servicio desorganizado y mal ambiente.',
         ];
 
         // Generar valoraciones para los Lugares (Discotecas 1-79, Bares 80-168)
@@ -155,7 +156,7 @@ class ValoracionSeeder extends Seeder
                     'comentario' => $comentario,
                     'reportado' => 0,
                     'created_at' => now()->subDays(rand(1, 30)),
-                    'updated_at' => now()
+                    'updated_at' => now(),
                 ];
             }
         }

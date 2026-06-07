@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etiqueta;
 use App\Models\Imagen;
 use App\Models\Lugar;
 use App\Models\Tipo;
 use App\Models\User;
-use App\Models\Etiqueta;
 use App\Services\ImageService;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class LugarController extends Controller
 {
     /**
      * Muestra la lista de lugares con filtros aplicados.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request)
     {
@@ -29,29 +31,28 @@ class LugarController extends Controller
             ->withQueryString();
 
         $tipos = Tipo::pluck('nombre', 'id');
+
         return view('admin.lugares.index', compact('lugares', 'tipos'));
     }
 
     /**
      * Muestra el formulario para crear un nuevo lugar.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
         $tipos = Tipo::pluck('nombre', 'id');
         $users = User::pluck('nombre', 'id');
         $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
- 
+
         return view('admin.lugares.create', compact('tipos', 'users', 'etiquetas'));
     }
 
     /**
      * Guarda un nuevo lugar en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Services\ImageService $imageService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, ImageService $imageService)
     {
@@ -98,8 +99,7 @@ class LugarController extends Controller
     /**
      * Muestra el formulario para editar un lugar existente.
      *
-     * @param \App\Models\Lugar $lugar
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(Lugar $lugar)
     {
@@ -107,17 +107,14 @@ class LugarController extends Controller
         $tipos = Tipo::orderBy('nombre')->pluck('nombre', 'id');
         $users = User::orderBy('nombre')->pluck('nombre', 'id');
         $etiquetas = Etiqueta::orderBy('nombre')->pluck('nombre', 'id');
- 
+
         return view('admin.lugares.edit', compact('lugar', 'tipos', 'users', 'etiquetas'));
     }
 
     /**
      * Actualiza un lugar existente en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Lugar $lugar
-     * @param \App\Services\ImageService $imageService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Lugar $lugar, ImageService $imageService)
     {
@@ -162,8 +159,7 @@ class LugarController extends Controller
     /**
      * Elimina un lugar de la base de datos.
      *
-     * @param \App\Models\Lugar $lugar
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Lugar $lugar)
     {
@@ -175,9 +171,8 @@ class LugarController extends Controller
     /**
      * Genera la lista de filtros aplicados.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     private function aplicarFiltros($query, Request $request)
     {
@@ -192,8 +187,7 @@ class LugarController extends Controller
                 $query->where('municipio', '=', $municipio);
             })
             ->when($request->nombre, function ($query, $nombre) {
-                $query->where('nombre', 'like', '%' . $nombre . '%');
+                $query->where('nombre', 'like', '%'.$nombre.'%');
             });
     }
 }
-

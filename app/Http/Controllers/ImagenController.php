@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Imagen;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImagenController extends Controller
 {
     /**
      * Elimina una imagen del almacenamiento y de la base de datos.
      *
-     * @param \App\Models\Imagen $imagen
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Imagen $imagen)
     {
@@ -23,7 +22,7 @@ class ImagenController extends Controller
             $ownsLugar = $imagen->lugar()->where('user_id', $user->id)->exists();
             $ownsEvento = $imagen->evento()->where('user_id', $user->id)->exists();
 
-            if (!$ownsLugar && !$ownsEvento) {
+            if (! $ownsLugar && ! $ownsEvento) {
                 abort(403, 'No tienes permiso para eliminar esta imagen.');
             }
         } elseif ($user->rol !== 'admin') {

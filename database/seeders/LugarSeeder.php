@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ class LugarSeeder extends Seeder
         DB::table('lugares')->truncate();
         Schema::enableForeignKeyConstraints();
 
-        $faker = \Faker\Factory::create('es_ES');
+        $faker = Factory::create('es_ES');
         $lugares = [];
 
         // 1. Discotecas (tipo_id = 1) - Declaradas individualmente a mano
@@ -30,7 +31,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 2,
@@ -44,7 +45,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 3,
@@ -58,7 +59,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 4,
@@ -72,7 +73,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 5,
@@ -86,7 +87,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 6,
@@ -100,7 +101,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 7,
@@ -114,7 +115,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 8,
@@ -128,7 +129,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 9,
@@ -142,7 +143,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 10,
@@ -156,7 +157,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 11,
@@ -170,7 +171,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 12,
@@ -184,7 +185,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 13,
@@ -198,7 +199,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 14,
@@ -212,7 +213,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 15,
@@ -226,7 +227,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 16,
@@ -240,7 +241,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 17,
@@ -254,7 +255,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 18,
@@ -268,7 +269,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 19,
@@ -282,7 +283,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 20,
@@ -296,7 +297,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 21,
@@ -310,7 +311,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 22,
@@ -324,7 +325,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 23,
@@ -338,7 +339,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 24,
@@ -352,7 +353,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 25,
@@ -366,7 +367,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 26,
@@ -380,7 +381,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 27,
@@ -394,7 +395,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 28,
@@ -408,7 +409,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 29,
@@ -422,7 +423,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 30,
@@ -436,7 +437,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 31,
@@ -450,7 +451,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 32,
@@ -464,7 +465,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 33,
@@ -478,7 +479,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 34,
@@ -492,7 +493,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 35,
@@ -506,7 +507,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 36,
@@ -520,7 +521,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 37,
@@ -534,7 +535,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 38,
@@ -548,7 +549,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 39,
@@ -562,7 +563,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Bareyo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 40,
@@ -576,7 +577,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Liencres',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 41,
@@ -590,7 +591,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Renedo de Piélagos',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 42,
@@ -604,7 +605,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Val de San Vicente',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 43,
@@ -618,7 +619,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 44,
@@ -632,7 +633,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 45,
@@ -646,7 +647,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 46,
@@ -660,7 +661,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 47,
@@ -674,7 +675,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 48,
@@ -688,7 +689,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 49,
@@ -702,7 +703,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 50,
@@ -716,7 +717,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cabezón de la Sal',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 51,
@@ -730,7 +731,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Sarón',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 52,
@@ -744,7 +745,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Selaya',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 53,
@@ -758,7 +759,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Reinosa',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 54,
@@ -772,7 +773,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ramales de la Victoria',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 55,
@@ -786,7 +787,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Astillero',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 56,
@@ -800,7 +801,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Camargo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 57,
@@ -814,7 +815,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santillana del Mar',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 58,
@@ -828,7 +829,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santillana del Mar',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 59,
@@ -842,7 +843,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Selaya',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 60,
@@ -856,7 +857,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Hazas de Cesto',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 61,
@@ -870,7 +871,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 62,
@@ -884,7 +885,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 63,
@@ -898,7 +899,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 64,
@@ -912,7 +913,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 65,
@@ -926,7 +927,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 66,
@@ -940,7 +941,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santoña',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 67,
@@ -954,7 +955,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 68,
@@ -968,7 +969,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 69,
@@ -982,7 +983,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 70,
@@ -996,7 +997,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 71,
@@ -1010,7 +1011,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 72,
@@ -1024,7 +1025,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 73,
@@ -1038,7 +1039,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 74,
@@ -1052,7 +1053,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 75,
@@ -1066,7 +1067,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 76,
@@ -1080,7 +1081,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 77,
@@ -1094,7 +1095,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 78,
@@ -1108,7 +1109,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 79,
@@ -1122,7 +1123,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // 2. Bares (tipo_id = 2) - Declarados individualmente a mano
@@ -1138,7 +1139,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 81,
@@ -1152,7 +1153,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 82,
@@ -1166,7 +1167,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 83,
@@ -1180,7 +1181,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 84,
@@ -1194,7 +1195,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 85,
@@ -1208,7 +1209,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 86,
@@ -1222,7 +1223,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 87,
@@ -1236,7 +1237,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 88,
@@ -1250,7 +1251,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 89,
@@ -1264,7 +1265,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 90,
@@ -1278,7 +1279,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 91,
@@ -1292,7 +1293,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 92,
@@ -1306,7 +1307,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 93,
@@ -1320,7 +1321,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 94,
@@ -1334,7 +1335,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 95,
@@ -1348,7 +1349,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 96,
@@ -1362,7 +1363,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 97,
@@ -1376,7 +1377,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 98,
@@ -1390,7 +1391,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 99,
@@ -1404,7 +1405,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 100,
@@ -1418,7 +1419,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 101,
@@ -1432,7 +1433,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 102,
@@ -1446,7 +1447,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 103,
@@ -1460,7 +1461,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 104,
@@ -1474,7 +1475,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 105,
@@ -1488,7 +1489,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 106,
@@ -1502,7 +1503,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 107,
@@ -1516,7 +1517,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 108,
@@ -1530,7 +1531,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 109,
@@ -1544,7 +1545,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 110,
@@ -1558,7 +1559,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 111,
@@ -1572,7 +1573,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 112,
@@ -1586,7 +1587,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 113,
@@ -1600,7 +1601,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 114,
@@ -1614,7 +1615,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 115,
@@ -1628,7 +1629,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 116,
@@ -1642,7 +1643,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 117,
@@ -1656,7 +1657,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 118,
@@ -1670,7 +1671,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 119,
@@ -1684,7 +1685,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 120,
@@ -1698,7 +1699,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 121,
@@ -1712,7 +1713,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 122,
@@ -1726,7 +1727,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 123,
@@ -1740,7 +1741,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 124,
@@ -1754,7 +1755,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Sarón',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 125,
@@ -1768,7 +1769,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Sarón',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 126,
@@ -1782,7 +1783,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Los Corrales de Buelna',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 127,
@@ -1796,7 +1797,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Comillas',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 128,
@@ -1810,7 +1811,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Reinosa',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 129,
@@ -1824,7 +1825,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Reinosa',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 130,
@@ -1838,7 +1839,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Potes',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 131,
@@ -1852,7 +1853,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santoña',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 132,
@@ -1866,7 +1867,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santoña',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 133,
@@ -1880,7 +1881,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santoña',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 134,
@@ -1894,7 +1895,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Colindres',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 135,
@@ -1908,7 +1909,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Colindres',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 136,
@@ -1922,7 +1923,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 137,
@@ -1936,7 +1937,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 138,
@@ -1950,7 +1951,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 139,
@@ -1964,7 +1965,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 140,
@@ -1978,7 +1979,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 141,
@@ -1992,7 +1993,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 142,
@@ -2006,7 +2007,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 143,
@@ -2020,7 +2021,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 144,
@@ -2034,7 +2035,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 145,
@@ -2048,7 +2049,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 146,
@@ -2062,7 +2063,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Vicente de la Barquera',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 147,
@@ -2076,7 +2077,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Vicente de la Barquera',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 148,
@@ -2090,7 +2091,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santillana del Mar',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 149,
@@ -2104,7 +2105,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santillana del Mar',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 150,
@@ -2118,7 +2119,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cabezón de la Sal',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 151,
@@ -2132,7 +2133,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cabezón de la Sal',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 152,
@@ -2146,7 +2147,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Astillero',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 153,
@@ -2160,7 +2161,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Astillero',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 154,
@@ -2174,7 +2175,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Muriedas',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 155,
@@ -2188,7 +2189,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Muriedas',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 156,
@@ -2202,7 +2203,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Camargo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 157,
@@ -2216,7 +2217,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Camargo',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 158,
@@ -2230,7 +2231,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Maliaño',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 159,
@@ -2244,7 +2245,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Maliaño',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 160,
@@ -2258,7 +2259,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Bezana',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 161,
@@ -2272,7 +2273,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santa Cruz de Bezana',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 162,
@@ -2286,7 +2287,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Boo de Piélagos',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 163,
@@ -2300,7 +2301,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Renedo de Piélagos',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 164,
@@ -2314,7 +2315,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Puente San Miguel',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 165,
@@ -2328,7 +2329,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ramales de la Victoria',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 166,
@@ -2342,7 +2343,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Liérganes',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 167,
@@ -2356,7 +2357,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Liérganes',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 168,
@@ -2370,7 +2371,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Isla',
             'direccion' => $faker->streetAddress,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // 3. Verbenas (tipo_id = 3) - Declaradas individualmente a mano
@@ -2386,7 +2387,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Alfoz de Lloredo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 170,
@@ -2400,7 +2401,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ampuero',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 171,
@@ -2414,7 +2415,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Anievas',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 172,
@@ -2428,7 +2429,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Arenas de Iguña',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 173,
@@ -2442,7 +2443,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Argoños',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 174,
@@ -2456,7 +2457,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Arnuero',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 175,
@@ -2470,7 +2471,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Arredondo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 176,
@@ -2484,7 +2485,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Astillero',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 177,
@@ -2498,7 +2499,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Bárcena de Cicero',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 178,
@@ -2512,7 +2513,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Bárcena de Pie de Concha',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 179,
@@ -2526,7 +2527,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Bareyo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 180,
@@ -2540,7 +2541,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cabezón de la Sal',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 181,
@@ -2554,7 +2555,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cabezón de Liébana',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 182,
@@ -2568,7 +2569,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cabuérniga',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 183,
@@ -2582,7 +2583,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Camaleño',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 184,
@@ -2596,7 +2597,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Camargo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 185,
@@ -2610,7 +2611,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Campoo de Enmedio',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 186,
@@ -2624,7 +2625,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Campoo de Yuso',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 187,
@@ -2638,7 +2639,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cartes',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 188,
@@ -2652,7 +2653,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castañeda',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 189,
@@ -2666,7 +2667,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Castro-Urdiales',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 190,
@@ -2680,7 +2681,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cieza',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 191,
@@ -2694,7 +2695,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Cillorigo de Liébana',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 192,
@@ -2708,7 +2709,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Colindres',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 193,
@@ -2722,7 +2723,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Comillas',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 194,
@@ -2736,7 +2737,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Corvera de Toranzo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 195,
@@ -2750,7 +2751,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Entrambasaguas',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 196,
@@ -2764,7 +2765,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Escalante',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 197,
@@ -2778,7 +2779,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Guriezo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 198,
@@ -2792,7 +2793,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Hazas de Cesto',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 199,
@@ -2806,7 +2807,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Hermandad de Campoo de Suso',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 200,
@@ -2820,7 +2821,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Herrerías',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 201,
@@ -2834,7 +2835,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Lamasón',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 202,
@@ -2848,7 +2849,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Laredo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 203,
@@ -2862,7 +2863,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Las Rozas de Valdearroyo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 204,
@@ -2876,7 +2877,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Liendo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 205,
@@ -2890,7 +2891,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Limpias',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 206,
@@ -2904,7 +2905,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Liérganes',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 207,
@@ -2918,7 +2919,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Los Corrales de Buelna',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 208,
@@ -2932,7 +2933,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Los Tojos',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 209,
@@ -2946,7 +2947,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Luena',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 210,
@@ -2960,7 +2961,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Marina de Cudeyo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 211,
@@ -2974,7 +2975,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Mazcuerras',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 212,
@@ -2988,7 +2989,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Medio Cudeyo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 213,
@@ -3002,7 +3003,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Meruelo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 214,
@@ -3016,7 +3017,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Miengo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 215,
@@ -3030,7 +3031,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Miera',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 216,
@@ -3044,7 +3045,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Molledo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 217,
@@ -3058,7 +3059,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Noja',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 218,
@@ -3072,7 +3073,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Penagos',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 219,
@@ -3086,7 +3087,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Pesaguero',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 220,
@@ -3100,7 +3101,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Pesquera',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 221,
@@ -3114,7 +3115,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Peñarrubia',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 222,
@@ -3128,7 +3129,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Piélagos',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 223,
@@ -3142,7 +3143,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Polaciones',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 224,
@@ -3156,7 +3157,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Polanco',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 225,
@@ -3170,7 +3171,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Potes',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 226,
@@ -3184,7 +3185,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Puente Viesgo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 227,
@@ -3198,7 +3199,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ramales de la Victoria',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 228,
@@ -3212,7 +3213,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Rasines',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 229,
@@ -3226,7 +3227,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Reinosa',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 230,
@@ -3240,7 +3241,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Reocín',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 231,
@@ -3254,7 +3255,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ribamontán al Mar',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 232,
@@ -3268,7 +3269,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ribamontán al Monte',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 233,
@@ -3282,7 +3283,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Rionansa',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 234,
@@ -3296,7 +3297,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Riotuerto',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 235,
@@ -3310,7 +3311,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ruente',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 236,
@@ -3324,7 +3325,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ruesga',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 237,
@@ -3338,7 +3339,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ruiloba',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 238,
@@ -3352,7 +3353,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Felices de Buelna',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 239,
@@ -3366,7 +3367,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Miguel de Aguayo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 240,
@@ -3380,7 +3381,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Pedro del Romeral',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 241,
@@ -3394,7 +3395,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Roque de Riomiera',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 242,
@@ -3408,7 +3409,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'San Vicente de la Barquera',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 243,
@@ -3422,7 +3423,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santa Cruz de Bezana',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 244,
@@ -3436,7 +3437,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santa María de Cayón',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 245,
@@ -3450,7 +3451,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santander',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 246,
@@ -3464,7 +3465,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santillana del Mar',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 247,
@@ -3478,7 +3479,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santiurde de Reinosa',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 248,
@@ -3492,7 +3493,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santiurde de Toranzo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 249,
@@ -3506,7 +3507,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Santoña',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 250,
@@ -3520,7 +3521,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Saro',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 251,
@@ -3534,7 +3535,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Selaya',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 252,
@@ -3548,7 +3549,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Soba',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 253,
@@ -3562,7 +3563,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Solórzano',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 254,
@@ -3576,7 +3577,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Suances',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 255,
@@ -3590,7 +3591,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Torrelavega',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 256,
@@ -3604,7 +3605,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Tresviso',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 257,
@@ -3618,7 +3619,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Tudanca',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 258,
@@ -3632,7 +3633,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Udías',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 259,
@@ -3646,7 +3647,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Val de San Vicente',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 260,
@@ -3660,7 +3661,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Valdeolea',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 261,
@@ -3674,7 +3675,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Valdeprado del Río',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 262,
@@ -3688,7 +3689,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Valderredible',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 263,
@@ -3702,7 +3703,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Valdáliga',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 264,
@@ -3716,7 +3717,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Valle de Villaverde',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 265,
@@ -3730,7 +3731,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Vega de Liébana',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 266,
@@ -3744,7 +3745,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Vega de Pas',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 267,
@@ -3758,7 +3759,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Villacarriedo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 268,
@@ -3772,7 +3773,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Villaescusa',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 269,
@@ -3786,7 +3787,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Villafufre',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 270,
@@ -3800,7 +3801,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Voto',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 271,
@@ -3814,7 +3815,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Solares',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 272,
@@ -3828,7 +3829,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Sarón',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 273,
@@ -3842,7 +3843,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Maliaño',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 274,
@@ -3856,7 +3857,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Muriedas',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 275,
@@ -3870,7 +3871,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Somo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 276,
@@ -3884,7 +3885,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Loredo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 277,
@@ -3898,7 +3899,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Ajo',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 278,
@@ -3912,7 +3913,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Isla',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 279,
@@ -3926,7 +3927,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Boo de Piélagos',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $lugares[] = [
             'id' => 280,
@@ -3940,7 +3941,7 @@ class LugarSeeder extends Seeder
             'municipio' => 'Renedo de Piélagos',
             'direccion' => 'Diversas plazas y calles del municipio',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Insertar los lugares en bloques

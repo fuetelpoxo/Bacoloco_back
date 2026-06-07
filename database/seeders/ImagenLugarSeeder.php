@@ -19,7 +19,7 @@ class ImagenLugarSeeder extends Seeder
         for ($lugarId = 1; $lugarId <= 115; $lugarId++) {
             $relations[] = [
                 'lugar_id' => $lugarId,
-                'imagen_id' => rand(1, 2)
+                'imagen_id' => rand(1, 2),
             ];
         }
 

@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LugarController;
+use App\Http\Controllers\OrganizadorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValoracionController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\OrganizadorController;
-use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // Redirigir la raíz al front en React

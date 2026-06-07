@@ -9,6 +9,7 @@ class Etiqueta extends Model
     protected $fillable = [
         'nombre',
     ];
+
     protected $hidden = ['pivot'];
 
     public function lugares()

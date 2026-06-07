@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 class Imagen extends Model
 {
     protected $table = 'imagenes';
+
     protected $hidden = ['pivot'];
+
     protected $fillable = [
         'ruta',
         'tipo',
@@ -24,6 +26,7 @@ class Imagen extends Model
         if (str_starts_with($this->ruta, 'http://') || str_starts_with($this->ruta, 'https://')) {
             return $this->ruta;
         }
+
         return Storage::url($this->ruta);
     }
 

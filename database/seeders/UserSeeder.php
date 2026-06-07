@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +25,7 @@ class UserSeeder extends Seeder
             'rol' => 'admin',
             'avatar' => null,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ]);
 
         // 2. 2 Organizadores
@@ -37,7 +38,7 @@ class UserSeeder extends Seeder
                 'rol' => 'organizador',
                 'avatar' => null,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
                 'id' => 3,
@@ -47,12 +48,12 @@ class UserSeeder extends Seeder
                 'rol' => 'organizador',
                 'avatar' => null,
                 'created_at' => now(),
-                'updated_at' => now()
-            ]
+                'updated_at' => now(),
+            ],
         ]);
 
         // 3. 97 Usuarios Normales
-        $faker = \Faker\Factory::create('es_ES');
+        $faker = Factory::create('es_ES');
         $users = [];
 
         // Optimizamos encriptando la contraseña una sola vez y usándola para todos los usuarios
@@ -61,13 +62,13 @@ class UserSeeder extends Seeder
         for ($i = 4; $i <= 100; $i++) {
             $users[] = [
                 'id' => $i,
-                'nombre' => $faker->firstName . ' ' . $faker->lastName,
+                'nombre' => $faker->firstName.' '.$faker->lastName,
                 'email' => "user{$i}@bacoloco.com",
                 'password' => $defaultPassword,
                 'rol' => 'usuario',
                 'avatar' => null,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ];
         }
 

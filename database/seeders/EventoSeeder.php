@@ -34,7 +34,7 @@ class EventoSeeder extends Seeder
             'precio' => 15.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -47,7 +47,7 @@ class EventoSeeder extends Seeder
             'precio' => 12.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Cambalache (2)
@@ -62,7 +62,7 @@ class EventoSeeder extends Seeder
             'precio' => 8.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -75,7 +75,7 @@ class EventoSeeder extends Seeder
             'precio' => 6.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Sümmum (5)
@@ -90,7 +90,7 @@ class EventoSeeder extends Seeder
             'precio' => 18.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -103,7 +103,7 @@ class EventoSeeder extends Seeder
             'precio' => 15.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Rocambole (7)
@@ -118,7 +118,7 @@ class EventoSeeder extends Seeder
             'precio' => 10.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -131,7 +131,7 @@ class EventoSeeder extends Seeder
             'precio' => 12.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Queen (8)
@@ -146,7 +146,7 @@ class EventoSeeder extends Seeder
             'precio' => 15.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -159,7 +159,7 @@ class EventoSeeder extends Seeder
             'precio' => 12.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // New Times (25)
@@ -174,7 +174,7 @@ class EventoSeeder extends Seeder
             'precio' => 12.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -187,7 +187,7 @@ class EventoSeeder extends Seeder
             'precio' => 10.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Botavara (34)
@@ -202,7 +202,7 @@ class EventoSeeder extends Seeder
             'precio' => 15.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -215,7 +215,7 @@ class EventoSeeder extends Seeder
             'precio' => 20.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // ZUL (39)
@@ -230,7 +230,7 @@ class EventoSeeder extends Seeder
             'precio' => 22.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -243,7 +243,7 @@ class EventoSeeder extends Seeder
             'precio' => 25.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Enjoy Castro (62)
@@ -258,7 +258,7 @@ class EventoSeeder extends Seeder
             'precio' => 10.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -271,7 +271,7 @@ class EventoSeeder extends Seeder
             'precio' => 12.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Moonlight Club (68)
@@ -286,7 +286,7 @@ class EventoSeeder extends Seeder
             'precio' => 15.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -299,7 +299,7 @@ class EventoSeeder extends Seeder
             'precio' => 15.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Velvet Santander (70)
@@ -314,7 +314,7 @@ class EventoSeeder extends Seeder
             'precio' => 12.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -327,7 +327,7 @@ class EventoSeeder extends Seeder
             'precio' => 10.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Kapital Santander (75)
@@ -342,7 +342,7 @@ class EventoSeeder extends Seeder
             'precio' => 20.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -355,7 +355,7 @@ class EventoSeeder extends Seeder
             'precio' => 25.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Algunos eventos extras en bares míticos para completar la oferta nocturna (Bares: 80 - 168)
@@ -371,7 +371,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Peter Pan (81)
@@ -386,7 +386,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Rock Beer The New (86)
@@ -401,9 +401,8 @@ class EventoSeeder extends Seeder
             'precio' => 8.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
-
 
         // --- 2. EVENTOS DE VERBENAS Y FIESTAS POPULARES ---
         // Santander (ID 245)
@@ -418,7 +417,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -431,7 +430,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Torrelavega (ID 255)
@@ -446,7 +445,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -459,7 +458,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Castro-Urdiales (ID 189)
@@ -474,7 +473,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -487,7 +486,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Laredo (ID 202)
@@ -502,7 +501,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -515,7 +514,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Santoña (ID 249)
@@ -530,7 +529,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -543,7 +542,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Suances (ID 254)
@@ -558,7 +557,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -571,7 +570,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Noja (ID 217)
@@ -586,7 +585,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -599,7 +598,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Comillas (ID 193)
@@ -614,7 +613,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -627,7 +626,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // San Vicente de la Barquera (ID 242)
@@ -642,7 +641,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -655,7 +654,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Potes (ID 225)
@@ -670,7 +669,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -683,7 +682,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Cabezón de la Sal (ID 180)
@@ -698,7 +697,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -711,7 +710,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Los Corrales de Buelna (ID 207)
@@ -727,7 +726,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -740,7 +739,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Camargo (Maliaño / Muriedas)
@@ -756,7 +755,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -769,7 +768,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Piélagos (Renedo / Boo)
@@ -785,7 +784,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -798,7 +797,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Astillero (ID 176)
@@ -813,7 +812,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -826,7 +825,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Santa Cruz de Bezana (ID 243)
@@ -841,7 +840,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -854,7 +853,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Colindres (ID 192)
@@ -869,7 +868,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -882,7 +881,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Ampuero (ID 170)
@@ -897,7 +896,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -910,7 +909,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Ramales de la Victoria (ID 227)
@@ -925,7 +924,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -938,7 +937,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Liérganes (ID 206)
@@ -953,7 +952,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -966,7 +965,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Solares (ID 271)
@@ -981,7 +980,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -994,7 +993,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Sarón (Santa María de Cayón) (ID 272)
@@ -1009,7 +1008,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Santa María de Cayón (ID 244)
@@ -1024,7 +1023,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Costa Oriental (Somo, Loredo, Ajo, Isla)
@@ -1041,7 +1040,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -1054,7 +1053,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Loredo (276)
@@ -1069,7 +1068,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Ajo (277)
@@ -1084,7 +1083,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Isla (278)
@@ -1099,7 +1098,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Santillana del Mar (ID 246)
@@ -1114,7 +1113,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -1127,7 +1126,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Puente Viesgo (ID 226)
@@ -1142,7 +1141,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Limpias (ID 205)
@@ -1157,7 +1156,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -1170,7 +1169,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Rasines (ID 228)
@@ -1185,7 +1184,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Entrambasaguas (ID 195)
@@ -1200,7 +1199,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Argoños (ID 173)
@@ -1215,7 +1214,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Selaya (ID 251)
@@ -1230,7 +1229,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
         $eventos[] = [
             'id' => $id++,
@@ -1243,7 +1242,7 @@ class EventoSeeder extends Seeder
             'precio' => 0.00,
             'activo' => 1,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         // Insertar los eventos en bloques

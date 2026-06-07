@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Valoracion;
 use App\Models\Lugar;
 use App\Models\User;
+use App\Models\Valoracion;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ValoracionController extends Controller
 {
     /**
      * Muestra el listado de valoraciones con filtros opcionales.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request)
     {
@@ -37,20 +39,20 @@ class ValoracionController extends Controller
     /**
      * Muestra el formulario para crear una nueva valoración.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $usuarios = User::orderBy('nombre')->pluck('nombre', 'id');
+
         return view('admin.valoraciones.create', compact('lugares', 'usuarios'));
     }
 
     /**
      * Guarda una nueva valoración en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -71,22 +73,20 @@ class ValoracionController extends Controller
     /**
      * Muestra el formulario para editar una valoración existente.
      *
-     * @param \App\Models\Valoracion $valoracion
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(Valoracion $valoracion)
     {
         $lugares = Lugar::orderBy('nombre')->pluck('nombre', 'id');
         $usuarios = User::orderBy('nombre')->pluck('nombre', 'id');
+
         return view('admin.valoraciones.edit', compact('valoracion', 'lugares', 'usuarios'));
     }
 
     /**
      * Actualiza una valoración existente en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Valoracion $valoracion
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Valoracion $valoracion)
     {
@@ -106,8 +106,7 @@ class ValoracionController extends Controller
     /**
      * Elimina una valoración de la base de datos.
      *
-     * @param \App\Models\Valoracion $valoracion
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Valoracion $valoracion)
     {
@@ -119,9 +118,8 @@ class ValoracionController extends Controller
     /**
      * Aplica los filtros de búsqueda a la consulta de valoraciones.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     private function aplicarFiltros($query, Request $request)
     {

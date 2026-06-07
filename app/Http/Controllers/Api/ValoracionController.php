@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Valoracion;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,7 @@ class ValoracionController extends Controller
     /**
      * Obtiene todas las valoraciones del usuario autenticado.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {
@@ -39,8 +40,7 @@ class ValoracionController extends Controller
      * - el lugar exista
      * - la puntuación esté entre 1 y 5
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -89,9 +89,8 @@ class ValoracionController extends Controller
     /**
      * Actualiza una valoración por su ID.
      *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -110,7 +109,7 @@ class ValoracionController extends Controller
         try {
             $valoracion = Valoracion::find($id);
 
-            if (!$valoracion) {
+            if (! $valoracion) {
                 return response()->json([
                     'message' => 'Valoración no encontrada.',
                 ], 404);
@@ -138,15 +137,15 @@ class ValoracionController extends Controller
     /**
      * Elimina una valoración por su ID.
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function destroy($id)
     {
         try {
             $valoracion = Valoracion::find($id);
 
-            if (!$valoracion) {
+            if (! $valoracion) {
                 return response()->json([
                     'message' => 'Valoración no encontrada.',
                 ], 404);
@@ -173,8 +172,8 @@ class ValoracionController extends Controller
     /**
      * Obtiene las valoraciones paginadas de un lugar.
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function porLugar($id)
     {

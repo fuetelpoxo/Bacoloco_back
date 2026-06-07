@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\ImageService;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     /**
      * Muestra el listado de usuarios con filtros opcionales.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request)
     {
@@ -31,7 +33,7 @@ class UserController extends Controller
     /**
      * Muestra el formulario para crear un nuevo usuario.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
@@ -41,9 +43,7 @@ class UserController extends Controller
     /**
      * Guarda un nuevo usuario en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Services\ImageService $imageService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, ImageService $imageService)
     {
@@ -70,8 +70,7 @@ class UserController extends Controller
     /**
      * Muestra el formulario para editar un usuario existente.
      *
-     * @param \App\Models\User $usuario
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(User $usuario)
     {
@@ -81,16 +80,13 @@ class UserController extends Controller
     /**
      * Actualiza un usuario existente en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $usuario
-     * @param \App\Services\ImageService $imageService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, User $usuario, ImageService $imageService)
     {
         $data = $request->validate([
             'nombre' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $usuario->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$usuario->id,
             'password' => 'nullable|string|min:6|confirmed',
             'rol' => 'required|string|in:admin,organizador,usuario',
             'avatar' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
@@ -119,8 +115,7 @@ class UserController extends Controller
     /**
      * Elimina un usuario de la base de datos.
      *
-     * @param \App\Models\User $usuario
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(User $usuario)
     {
@@ -136,18 +131,17 @@ class UserController extends Controller
     /**
      * Aplica los filtros de búsqueda a la consulta de usuarios.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     private function aplicarFiltros($query, Request $request)
     {
         return $query
             ->when($request->nombre, function ($query, $nombre) {
-                $query->where('nombre', 'like', '%' . $nombre . '%');
+                $query->where('nombre', 'like', '%'.$nombre.'%');
             })
             ->when($request->email, function ($query, $email) {
-                $query->where('email', 'like', '%' . $email . '%');
+                $query->where('email', 'like', '%'.$email.'%');
             })
             ->when($request->rol, function ($query, $rol) {
                 $query->where('rol', '=', $rol);
