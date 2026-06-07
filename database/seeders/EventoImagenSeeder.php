@@ -21,7 +21,7 @@ class EventoImagenSeeder extends Seeder
         for ($eventoId = 1; $eventoId <= $count; $eventoId++) {
             $relations[] = [
                 'evento_id' => $eventoId,
-                'imagen_id' => rand(1, 2)
+                'imagen_id' => rand(1, 2),
             ];
         }
 

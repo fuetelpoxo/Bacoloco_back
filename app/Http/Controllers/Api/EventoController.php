@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Evento;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class EventoController extends Controller
 {
@@ -16,8 +17,8 @@ class EventoController extends Controller
      * - etiquetas
      * - imágenes
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -28,7 +29,7 @@ class EventoController extends Controller
                 'lugar'
             )->find($id);
 
-            if (!$evento) {
+            if (! $evento) {
                 return response()->json([
                     'message' => 'Evento no encontrado.',
                 ], 404);
@@ -46,13 +47,13 @@ class EventoController extends Controller
      * Obtiene las próximas verbenas (eventos en lugares de tipo 3)
      * ordenados por fecha de inicio más cercana.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function proximasVerbenas()
     {
         try {
             $hoy = now()->startOfDay();
-            
+
             $eventos = Evento::with('lugar')
                 ->whereHas('lugar', function ($query) {
                     $query->where('tipo_id', 3);
@@ -75,7 +76,7 @@ class EventoController extends Controller
             return response()->json($eventos);
         } catch (Exception $e) {
             return response()->json([
-                'message' => 'Error al obtener las próximas verbenas: ' . $e->getMessage(),
+                'message' => 'Error al obtener las próximas verbenas: '.$e->getMessage(),
             ], 500);
         }
     }

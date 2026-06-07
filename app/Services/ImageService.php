@@ -12,10 +12,10 @@ class ImageService
     /**
      * Optimiza una imagen subida, la convierte a WebP, la redimensiona y la guarda.
      *
-     * @param UploadedFile $archivo El archivo subido.
-     * @param string $carpeta Carpeta de destino dentro del disco public (ej. 'lugares', 'eventos').
-     * @param int|null $anchoMaximo Ancho máximo permitido para redimensionar (opcional).
-     * @param int $calidad Calidad de la compresión WebP (1-100).
+     * @param  UploadedFile  $archivo  El archivo subido.
+     * @param  string  $carpeta  Carpeta de destino dentro del disco public (ej. 'lugares', 'eventos').
+     * @param  int|null  $anchoMaximo  Ancho máximo permitido para redimensionar (opcional).
+     * @param  int  $calidad  Calidad de la compresión WebP (1-100).
      * @return string Ruta relativa del archivo guardado (ej. 'lugares/nombre-unico.webp').
      */
     public function optimizarYGuardar(UploadedFile $archivo, string $carpeta, ?int $anchoMaximo = 1200, int $calidad = 80): string
@@ -32,7 +32,7 @@ class ImageService
         $imagenWebP = $imagen->toWebp($calidad);
 
         // 4. Generar una ruta y nombre único para el archivo
-        $nombreArchivo = $carpeta . '/' . Str::uuid() . '.webp';
+        $nombreArchivo = $carpeta.'/'.Str::uuid().'.webp';
 
         // 5. Guardar en el almacenamiento por defecto (local/public en dev, s3/R2 en producción)
         Storage::disk()->put($nombreArchivo, (string) $imagenWebP);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nombre');
             $table->text('descripcion')->nullable();
-            $table->decimal('latitud', 10, 7);//decimal necesario para coordenadas precisas
+            $table->decimal('latitud', 10, 7); // decimal necesario para coordenadas precisas
             $table->decimal('longitud', 10, 7);
             $table->string('municipio');
             $table->string('direccion')->nullable();

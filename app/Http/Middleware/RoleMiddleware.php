@@ -10,7 +10,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$roles)
     {
         $user = $request->user();
-        if (!$user || !in_array($user->rol, $roles, true)) {
+        if (! $user || ! in_array($user->rol, $roles, true)) {
             abort(403);
         }
 

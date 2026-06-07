@@ -1,25 +1,26 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventoController;
 use App\Http\Controllers\Api\FavoritoController;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\LugarController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ValoracionController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LugarController;
 
-//RUTAS API AUTENTICACION
+// RUTAS API AUTENTICACION
 Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/register', 'register');
     Route::middleware('auth:sanctum')->post('/logout', 'logout');
 });
 
-Route::middleware('auth:sanctum')->get('/me', function (\Illuminate\Http\Request $request) {
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     return $request->user();
 });
 
-//RUTAS API LUGARES
+// RUTAS API LUGARES
 Route::prefix('lugares')->controller(LugarController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/mapa', 'getDatosMapa');
@@ -28,25 +29,23 @@ Route::prefix('lugares')->controller(LugarController::class)->group(function () 
     Route::get('/{id}', 'show');
 });
 
-//RUTAS API VALORACIONES PUBLICAS (paginadas por lugar)
+// RUTAS API VALORACIONES PUBLICAS (paginadas por lugar)
 Route::get('/lugares/{id}/valoraciones', [ValoracionController::class, 'porLugar']);
 
-
-//RUTAS API EVENTOS
+// RUTAS API EVENTOS
 Route::prefix('eventos')->controller(EventoController::class)->group(function () {
     Route::get('/proximas-verbenas', 'proximasVerbenas');
     Route::get('/{id}', 'show');
 });
 
-
-//RUTAS API FAVORITOS
+// RUTAS API FAVORITOS
 Route::middleware('auth:sanctum')->prefix('favoritos')->controller(FavoritoController::class)->group(function () {
     Route::post('/', 'store');
     Route::get('/usuario', 'index');
     Route::delete('/{id}', 'destroy');
 });
 
-//RUTAS API VALORACIONES
+// RUTAS API VALORACIONES
 Route::middleware('auth:sanctum')->prefix('valoraciones')->controller(ValoracionController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
@@ -54,7 +53,7 @@ Route::middleware('auth:sanctum')->prefix('valoraciones')->controller(Valoracion
     Route::delete('/{id}', 'destroy');
 });
 
-//RUTAS API USUARIO
+// RUTAS API USUARIO
 Route::middleware('auth:sanctum')->prefix('usuario')->controller(UserController::class)->group(function () {
     Route::put('/', 'update');
     Route::put('/password', 'changePassword');

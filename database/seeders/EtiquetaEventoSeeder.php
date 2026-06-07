@@ -25,7 +25,7 @@ class EtiquetaEventoSeeder extends Seeder
             for ($k = 0; $k < $numTags; $k++) {
                 $relations[] = [
                     'evento_id' => $eventoId,
-                    'etiqueta_id' => array_pop($tagIds)
+                    'etiqueta_id' => array_pop($tagIds),
                 ];
             }
         }

@@ -24,7 +24,7 @@ class EtiquetaLugarSeeder extends Seeder
             for ($k = 0; $k < $numTags; $k++) {
                 $relations[] = [
                     'lugar_id' => $lugarId,
-                    'etiqueta_id' => array_pop($tagIds)
+                    'etiqueta_id' => array_pop($tagIds),
                 ];
             }
         }

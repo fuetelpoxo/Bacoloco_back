@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,8 +16,7 @@ class AuthController extends Controller
     /**
      * Registra un nuevo usuario en la aplicación.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function register(Request $request)
     {
@@ -62,8 +63,7 @@ class AuthController extends Controller
     /**
      * Inicia sesión de un usuario existente.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(Request $request)
     {
@@ -72,9 +72,9 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Credenciales incorrectas'
+                'message' => 'Credenciales incorrectas',
             ], 401);
         }
 
@@ -96,8 +96,7 @@ class AuthController extends Controller
     /**
      * Cierra la sesión del usuario autenticado.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return JsonResponse|RedirectResponse
      */
     public function logout(Request $request)
     {
@@ -110,10 +109,10 @@ class AuthController extends Controller
 
         if ($isJson) {
             return response()->json([
-                'message' => 'Logout correcto.'
+                'message' => 'Logout correcto.',
             ]);
         }
 
-        return redirect(config('app.frontend_url') . '/login');
+        return redirect(config('app.frontend_url').'/login');
     }
 }

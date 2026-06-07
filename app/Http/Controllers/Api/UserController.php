@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,19 +13,16 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-
-
     /**
      * Actualiza nombre y email del usuario autenticado.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|email|max:255|unique:users,email,' . Auth::id(),
+            'email' => 'sometimes|required|email|max:255|unique:users,email,'.Auth::id(),
         ]);
 
         if ($validator->fails()) {
@@ -37,7 +35,7 @@ class UserController extends Controller
         try {
             $user = User::find(Auth::id());
 
-            if (!$user) {
+            if (! $user) {
                 return response()->json([
                     'message' => 'Usuario no encontrado.',
                 ], 404);
@@ -59,8 +57,7 @@ class UserController extends Controller
     /**
      * Cambia la contraseña del usuario autenticado.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function changePassword(Request $request)
     {
@@ -79,13 +76,13 @@ class UserController extends Controller
         try {
             $user = User::find(Auth::id());
 
-            if (!$user) {
+            if (! $user) {
                 return response()->json([
                     'message' => 'Usuario no encontrado.',
                 ], 404);
             }
 
-            if (!Hash::check($request->password_actual, $user->password)) {
+            if (! Hash::check($request->password_actual, $user->password)) {
                 return response()->json([
                     'message' => 'La contraseña actual no es correcta.',
                 ], 401);
@@ -107,15 +104,14 @@ class UserController extends Controller
     /**
      * Elimina la cuenta del usuario autenticado.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy(Request $request)
     {
         try {
             $user = $request->user();
 
-            if (!$user) {
+            if (! $user) {
                 return response()->json([
                     'message' => 'Usuario no autenticado.',
                 ], 401);

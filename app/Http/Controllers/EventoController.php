@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Imagen;
+use App\Models\Etiqueta;
 use App\Models\Evento;
+use App\Models\Imagen;
 use App\Models\Lugar;
 use App\Models\User;
-use App\Models\Etiqueta;
 use App\Services\ImageService;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class EventoController extends Controller
 {
     /**
      * Muestra el listado de eventos con filtros opcionales.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request)
     {
@@ -39,7 +41,7 @@ class EventoController extends Controller
     /**
      * Muestra el formulario para crear un nuevo evento.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
@@ -53,9 +55,7 @@ class EventoController extends Controller
     /**
      * Guarda un nuevo evento en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Services\ImageService $imageService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, ImageService $imageService)
     {
@@ -71,7 +71,7 @@ class EventoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'precio' => 'nullable|numeric|min:0',
             'activo' => 'sometimes|boolean',
-            'imagenes' => 'nullable|array|max:' . $maxImagenes,
+            'imagenes' => 'nullable|array|max:'.$maxImagenes,
             'imagenes.*' => 'nullable|image|max:2048|mimes:jpeg,png,gif,webp',
             'etiquetas' => 'nullable|array|max:4',
             'etiquetas.*' => 'integer|exists:etiquetas,id',
@@ -118,8 +118,7 @@ class EventoController extends Controller
     /**
      * Muestra el formulario para editar un evento existente.
      *
-     * @param \App\Models\Evento $evento
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     * @return View|RedirectResponse
      */
     public function edit(Evento $evento)
     {
@@ -144,10 +143,7 @@ class EventoController extends Controller
     /**
      * Actualiza un evento existente en la base de datos.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Evento $evento
-     * @param \App\Services\ImageService $imageService
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Evento $evento, ImageService $imageService)
     {
@@ -214,6 +210,7 @@ class EventoController extends Controller
             if (Auth::user()->rol === 'organizador') {
                 return redirect()->route('organizador.dashboard')->with('success', 'Evento actualizado correctamente.');
             }
+
             return redirect()->route('eventos.index')->with('success', 'Evento actualizado correctamente.');
         });
     }
@@ -221,8 +218,7 @@ class EventoController extends Controller
     /**
      * Elimina un evento de la base de datos.
      *
-     * @param \App\Models\Evento $evento
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Evento $evento)
     {
@@ -235,21 +231,21 @@ class EventoController extends Controller
         if (Auth::user()->rol === 'organizador') {
             return redirect()->route('organizador.dashboard')->with('success', 'Evento eliminado correctamente.');
         }
+
         return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
 
     /**
      * Aplica los filtros de búsqueda a la consulta de eventos.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     private function aplicarFiltros($query, Request $request)
     {
         return $query
             ->when($request->nombre_evento, function ($query, $nombreEvento) {
-                $query->where('nombre', 'like', '%' . $nombreEvento . '%');
+                $query->where('nombre', 'like', '%'.$nombreEvento.'%');
             })
             ->when($request->precio_desde, function ($query, $precioDesde) {
                 $query->where('precio', '>=', $precioDesde);

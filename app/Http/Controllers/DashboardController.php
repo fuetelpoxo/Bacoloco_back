@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Lugar;
 use App\Models\Evento;
-use Illuminate\Http\Request;
+use App\Models\Lugar;
+use App\Models\User;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     /**
      * Muestra el panel de administración con estadísticas generales.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index()
     {

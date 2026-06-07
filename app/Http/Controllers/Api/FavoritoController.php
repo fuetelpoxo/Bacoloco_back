@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Favorito;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -19,8 +20,7 @@ class FavoritoController extends Controller
      * - el lugar exista
      * - no exista ya ese favorito previamente
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -67,7 +67,7 @@ class FavoritoController extends Controller
      * Obtiene todos los favoritos de un usuario
      * junto con la información del lugar relacionado.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {
@@ -87,15 +87,15 @@ class FavoritoController extends Controller
     /**
      * Elimina un favorito mediante su ID.
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function destroy($id)
     {
         try {
             $favorito = Favorito::find($id);
 
-            if (!$favorito) {
+            if (! $favorito) {
                 return response()->json([
                     'message' => 'Favorito no encontrado.',
                 ], 404);

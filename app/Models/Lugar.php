@@ -19,6 +19,7 @@ class Lugar extends Model
     ];
 
     protected $table = 'lugares';
+
     public function tipo()
     {
         return $this->belongsTo(Tipo::class);

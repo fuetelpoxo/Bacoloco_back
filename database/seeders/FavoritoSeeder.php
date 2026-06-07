@@ -20,15 +20,15 @@ class FavoritoSeeder extends Seeder
                 'user_id' => 4, // normal user
                 'lugar_id' => 1, // Kroker/discoteca
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
                 'id' => 2,
                 'user_id' => 4,
                 'lugar_id' => 51, // bar
                 'created_at' => now(),
-                'updated_at' => now()
-            ]
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

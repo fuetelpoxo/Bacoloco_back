@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Lugar;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LugarController extends Controller
@@ -18,8 +20,7 @@ class LugarController extends Controller
      * - búsqueda por nombre
      * - ordenación
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -43,6 +44,7 @@ class LugarController extends Controller
             ], 500);
         }
     }
+
     /**
      * Obtiene los datos mínimos necesarios para mostrar
      * los marcadores en el mapa.
@@ -55,7 +57,7 @@ class LugarController extends Controller
      * - latitud
      * - longitud
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function getDatosMapa()
     {
@@ -82,8 +84,7 @@ class LugarController extends Controller
     /**
      * Obtiene los mejores lugares basados en su valoración media.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function getMejores(Request $request)
     {
@@ -104,7 +105,7 @@ class LugarController extends Controller
                 $queryFallback = Lugar::withAvg('valoraciones', 'puntuacion')
                     ->with('tipo:id,nombre')
                     ->orderByDesc('created_at');
-                    
+
                 if ($request->has('tipo_id')) {
                     $queryFallback->where('tipo_id', $request->tipo_id);
                 }
@@ -129,8 +130,8 @@ class LugarController extends Controller
      * - valoraciones
      * - imágenes
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -143,10 +144,10 @@ class LugarController extends Controller
                         ->orderBy('fecha_inicio', 'asc')
                         ->take(5);
                 },
-                'imagenes'
+                'imagenes',
             ])->find($id);
 
-            if (!$lugar) {
+            if (! $lugar) {
                 return response()->json([
                     'message' => 'Lugar no encontrado.',
                 ], 404);
@@ -163,9 +164,8 @@ class LugarController extends Controller
     /**
      * Aplica los filtros de búsqueda a la consulta de lugares.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     private function aplicarFiltros($query, Request $request)
     {
@@ -178,7 +178,7 @@ class LugarController extends Controller
                 $query->where('municipio', $municipio);
             })
             ->when($request->buscar, function ($query, $buscar) {
-                $query->where('nombre', 'like', '%' . $buscar . '%');
+                $query->where('nombre', 'like', '%'.$buscar.'%');
             })
             ->when($request->order, function ($query, $order) {
                 $allowedColumns = ['nombre', 'municipio', 'created_at', 'id'];
@@ -191,15 +191,15 @@ class LugarController extends Controller
     /**
      * Devuelve el lugar y todos sus eventos ordenados por fecha de inicio.
      *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return JsonResponse
      */
     public function getEventosPorLugar($id)
     {
         try {
             $lugar = Lugar::with('imagenes')->find($id);
 
-            if (!$lugar) {
+            if (! $lugar) {
                 return response()->json(['message' => 'Lugar no encontrado.'], 404);
             }
 
@@ -209,7 +209,7 @@ class LugarController extends Controller
                 ->get();
 
             return response()->json([
-                'lugar'   => $lugar,
+                'lugar' => $lugar,
                 'eventos' => $eventos,
             ]);
         } catch (Exception $e) {
