@@ -244,6 +244,11 @@ class EventoController extends Controller
     private function aplicarFiltros($query, Request $request)
     {
         return $query
+            ->when($request->nombre_lugar, function ($query, $nombreLugar) {
+                $query->whereHas('lugar', function ($q) use ($nombreLugar) {
+                    $q->where('nombre', 'like', '%'.$nombreLugar.'%');
+                });
+            })
             ->when($request->nombre_evento, function ($query, $nombreEvento) {
                 $query->where('nombre', 'like', '%'.$nombreEvento.'%');
             })
